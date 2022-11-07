@@ -1,21 +1,16 @@
-#TreaSureWhyNot
+-------------------------------------------TreaSureWhyNot-------------------------------------------
+-----By Henry David Burton-----
 
-#By Henry David Burton
+---HOW TO PLAY---
+-Default Controles -> Left,Right,Down,Up Arrows to move  |  Enter to interacts  |  esc = back/cancle | Rest are self explaintory (in game) |
 
-Game is still in a work in progress so here are things to know
+---File Locations---
+-for available keys   : FrontEnd/Window -> Method -> warmUpKeyListener <- (near the bottom)   
+-for what keys do what: BackEnd/FileManagment/SavedData/Settings/KeyBindings for more info   
 
---Default Controles -> Left,Right,Down,Up Arrows to move  |  Enter to interacts  |  esc = back/cancle |
-        FrontEnd/Window -> Method -> warmUpKeyListener <- (near the bottom)   for available keys
-                            OR
-        BackEnd/FileManagment/SavedData/Settings/KeyBindings for more info    for what keys do what
+---Things to Know---
+-Texture/Colors are still a work in progress
+-the only option that work are the save and keybinding feature works
 
---Texture/Colors are still a work in progress
-
-
----Over world
-
----internal
-In order to save you need to change the boolean variable "deleteFilesOnStart" inside of "FrontEnd/Runner" line 39~ (could break game tho idk
-
--Settings
-the only option that work are the save and keybinding feature works
+---Debugger/Code Workings---
+-In order to save you need to change the boolean variable "deleteFilesOnStart" inside of "FrontEnd/Runner" line 39~ (could break game tho idk)
