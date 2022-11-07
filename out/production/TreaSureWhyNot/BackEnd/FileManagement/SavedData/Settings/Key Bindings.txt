@@ -1,0 +1,16 @@
+--------------------Key Bindings--------------------
+--Player Movement--
+◀:LEFT
+▲:UP
+▼:DOWN
+▶:RIGHT
+--Side Window--
+M:MAP
+J:JOURNAL
+B:TREASURE
+T:TOOL
+--Other--
+ESC:PAUSE
+ENTER:INTERACT
+SHIFT:SWAP TO TABS
+USED:,◀,▲,▼,▶,M,B,T,ESC,ENTER,SHIFT,

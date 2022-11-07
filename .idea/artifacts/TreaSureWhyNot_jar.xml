@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TreaSureWhyNot:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/TreaSureWhyNot_jar</output-path>
+    <root id="archive" name="TreaSureWhyNot.jar">
+      <element id="module-output" name="TreaSureWhyNot" />
+    </root>
+  </artifact>
+</component>
