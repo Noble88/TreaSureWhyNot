@@ -14,3 +14,5 @@
 
 ---Debugger/Code Workings---
 -In order to save you need to change the boolean variable "deleteFilesOnStart" inside of "FrontEnd/Runner" line 39~ (could break game tho idk)
+
+--IN ORDER TO SEE VRESION BEFORE v0.8.5 THEN GO TO -> https://drive.google.com/drive/folders/1QZYHirrZv8MxfAhGiwa1wsFlJJnA6VJk?usp=share_link

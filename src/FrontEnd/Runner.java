@@ -29,7 +29,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 //TODO SENDING IT OUT: before sharing final results: toggle saving in settings / make exe file / bug check... / help menu / TBA
 //TODO EFFICIENCY: organize imports to reduce loading time
-//TEST CHANGE
+
 public class Runner {
   public static String curFilePath=System.getProperty("user.dir");
   public static boolean settingUp=true;
