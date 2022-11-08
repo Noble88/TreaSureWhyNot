@@ -2,6 +2,7 @@ package FrontEnd;
 
 
 import BackEnd.GameBehaviors.LevelBhvr;
+import BackEnd.GameBehaviors.SideWndwElmnts.Journal;
 import BackEnd.GameBehaviors.SideWndwElmnts.ToolBag;
 import BackEnd.GameBehaviors.SideWndwElmnts.TresBag;
 import BackEnd.GameBehaviors.SideWndwElmnts.SideWndwObjs.Tools;
@@ -17,12 +18,12 @@ import static BackEnd.GameBehaviors.LevelBhvr.curLev;
 //TODO MAKE: make options page (in game) for debugger to toggle certain options on or off
 
 public class Debugger {
-  public static boolean showLevelContacts,playerDebug,levelDebug,bagDebug,tBoxDebug,windowDebug,saveDataDebug,
+  public static boolean showLevelContacts,playerDebug,levelDebug, sideMenuDebug,tBoxDebug,windowDebug,saveDataDebug,
       fileTracerDebug, eventDebug,selectBoxDebug;
-  public static void debugGame(boolean player, boolean level,boolean bag, boolean tBox,
+  public static void debugGame(boolean player, boolean level,boolean sideMen, boolean tBox,
                                boolean levelContacts, boolean window, boolean saveData, boolean fileTracer,
                                boolean event,boolean selBox){
-    playerDebug=player; levelDebug=level; bagDebug=bag;tBoxDebug=tBox;
+    playerDebug=player; levelDebug=level; sideMenuDebug=sideMen; tBoxDebug=tBox;
     showLevelContacts=levelContacts; windowDebug=window; saveDataDebug=saveData; fileTracerDebug=fileTracer;
     eventDebug =event; selectBoxDebug=selBox;}
   public static void showLevelContacts(String name, String[] contacts){if(!showLevelContacts){return;}
@@ -46,7 +47,7 @@ public class Debugger {
   }
   //TODO SUGGESTION -> make it so displays item info upon reciving the item insead of printing each time nav hover over it (maybe toggle extensive mode)
   //region Bag Debuggers
-  public static void toolDebugger(){    if(!bagDebug){return;}
+  public static void toolDebugger(){    if(!sideMenuDebug){return;}
     System.out.print("\n-------------TOOL BAG DEBUGGER-------------\n" +
         "PAGE:("+ToolBag.menu.getCurPg()+")  |  Current Tile:"+ Arrays.toString(ToolBag.menu.getNav())+" |     ");
 
@@ -62,7 +63,7 @@ public class Debugger {
       }
     }else{System.out.println("Current Selection -> Null");}
   }
-  public static void tresDebugger(){    if(!bagDebug){return;}
+  public static void tresDebugger(){    if(!sideMenuDebug){return;}
     System.out.print("\n-------------TREASURE BAG DEBUGGER-------------\n" +
         "PAGE:("+ TresBag.menu.getCurPg()+")  |  Current Tile:"+ Arrays.toString(TresBag.menu.getNav())+" |     ");
 
@@ -77,6 +78,17 @@ public class Debugger {
         System.out.println(line);
       }
     }else{System.out.println("Current Selection -> Null");}
+  }
+  public static void JrnlDebugger(){    if(!sideMenuDebug){return;}
+    System.out.print("\n-------------JOURNAL BAG DEBUGGER-------------\n" +
+        "PAGE:("+ Journal.menu.getCurPg()+")  |  Current Tile:"+ Arrays.toString(Journal.menu.getNav()));
+    if(Journal.getHighlightedQuest()!=null){
+      System.out.println(
+          "HIGHLIGHTED QUEST ->  NAME: ("+Journal.getHighlightedQuest().name+")  |  " +
+          "TaskNum: ("+Journal.getHighlightedQuest().taskNum+")  |  " +
+          "Is Current Task Completed: ("+Journal.getHighlightedQuest().getCurTask().getIsComplete()+")"
+      );}
+    else{System.out.println("NO QUEST IN THIS SLOT");}
   }
   //endregion
   //region Text Box Debugger

@@ -81,6 +81,8 @@ public class ToolBag {
   //TODO CREATE METHOD: make method that takes in item's name and searches bag for that item
   //TODO CREATE FILE: create a file in fresh assests that contains all the possible items a player can get so auto creates it
 
+  //TODO CREATE: make hashmap that contains name to object (make sure to save it somehow)
+  //TODO Check: are items even saved if not make it some items are saved over
 
   public static void writeIcon(ToolPage page, Tools item){
     byte[] pos = item.getPos();
@@ -109,6 +111,7 @@ public class ToolBag {
   }
 
   //endregion
+
 
   public static void refreshBag() throws IOException, ClassNotFoundException {
     switchPage(menu.getCurPg());
@@ -171,7 +174,6 @@ public class ToolBag {
     for(byte i=0;i<name.length() && i<11-3;i++){
       SideWndwMangr.updateCell(name.substring(i,i+1),new byte[]{22, (byte) (i+3)});
     }
-
   }
 
 

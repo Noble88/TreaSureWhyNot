@@ -5,6 +5,9 @@ import BackEnd.FileManagement.Loaders.LoadPlayerData;
 import BackEnd.GameBehaviors.LevelBhvr;
 import BackEnd.GameBehaviors.ScreenCover.PauseScreen.Settings.KeyBinds;
 import BackEnd.GameBehaviors.SideWndwBhvr;
+import BackEnd.GameBehaviors.SideWndwElmnts.Journal;
+import BackEnd.GameBehaviors.SideWndwElmnts.SideWndwObjs.Jrnl.Quest;
+import BackEnd.GameBehaviors.SideWndwElmnts.SideWndwObjs.Jrnl.Tasks;
 import BackEnd.GameBehaviors.SideWndwElmnts.ToolBag;
 import BackEnd.GameBehaviors.SideWndwElmnts.TresBag;
 import BackEnd.GameLoop;
@@ -27,6 +30,7 @@ import FrontEnd.Managers.TBoxMangr;
 
 import java.io.IOException;
 import java.util.ArrayList;
+//NOTE: version naming goes as following relase.majorAddition.Patch
 //TODO SENDING IT OUT: before sharing final results: toggle saving in settings / make exe file / bug check... / help menu / TBA
 //TODO EFFICIENCY: organize imports to reduce loading time
 
@@ -60,8 +64,8 @@ public class Runner {
     if(!deleteFilesOnStart){LoadLevels.levelSelect(LoadPlayerData.getSavedLevelFileDirectoryPlayerIn());} //grab the level that the player is on
     else{LoadLevels.levelSelect(curFilePath+"/src/BackEnd/FileManagement/SavedData/Assets/Levels/LivelyLeafs/0,0.txt");}
 
-    Debugger.debugGame(true,false,true,false,
-        false,false,false,false,false,false);
+    Debugger.debugGame(false,false,true,false,
+        false,false,true,false,false,false);
 
     ScreenCoverMangr.warmUpScreenCover();
     KeyBinds.warmUpSettings();
@@ -90,6 +94,16 @@ public class Runner {
       //region modifyable start
 
       //region add Quests
+      Journal.quests.add(new Quest("QUEST TEST 1", new ArrayList<Tasks>(){{
+            add(new Tasks.SpeakToNpcGetTestTask('s',"INTIAL TEXT","FINISHED QUEST TEXT"));
+      }}));
+      Journal.quests.add(new Quest("QUEST TEST 2", new ArrayList<Tasks>(){{
+        add(new Tasks.SpeakToNpcGetTestTask('S',"INTIAL TEXT","FINISHED QUEST TEXT"));
+      }}));
+      Journal.quests.add(new Quest("QUEST TEST 3", new ArrayList<Tasks>(){{
+        add(new Tasks.SpeakToNpcGetTestTask('k',"INTIAL TEXT","FINISHED QUEST TEXT"));
+      }}));
+      //endregion
       //region test live and input objects
 
       LiveObjs obj1 = new LiveObjs.CordListMvt('P',new byte[]{5,4}, (byte) 20,

@@ -68,5 +68,7 @@ public class MenuCus {
 
   public void setNav(int y, int x){nav[0]= (byte) y;nav[1]= (byte) x;}
   public void setCurPg(int pg){curPg= (byte) pg;}
+  public void setMaxPg(int pg){maxPg= (byte) pg;}
+
 
 }

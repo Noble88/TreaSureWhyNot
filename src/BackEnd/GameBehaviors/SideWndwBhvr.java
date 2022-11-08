@@ -1,5 +1,6 @@
 package BackEnd.GameBehaviors;
 
+import BackEnd.GameBehaviors.SideWndwElmnts.Journal;
 import BackEnd.GameBehaviors.SideWndwElmnts.ToolBag;
 import BackEnd.GameBehaviors.SideWndwElmnts.TresBag;
 import BackEnd.GameLoop;
@@ -13,6 +14,7 @@ public class SideWndwBhvr {
   //TODO LATER: make a combine status that combines the top half of the side window & bottom half and an array
   // Then use that array and update all cells using SideWndwMangr.updateCells(arr)
   public static void switchTabs(String tab) throws IOException, ClassNotFoundException {
+    if(tab.equals(curTab)){return;}//Will make it so wont refresh stuff if only attempted to switch to a page that player is already on
     SideWndwMangr.clearSideWindowBg(true);
     curTab=tab;
 
@@ -27,6 +29,11 @@ public class SideWndwBhvr {
         SideWndwMangr.updateBtmCells(ToolBag.curPage.bagLayout);
         ToolBag.updateSubText();
         ToolBag.refreshBag();
+      }
+      case "JOURNAL"->{
+        SideWndwMangr.changeJournalHighlightState(true);
+        Journal.displayQuests(); Journal.updateSubText();
+
       }
       //case "MAP"->{}
     }
@@ -53,6 +60,15 @@ public class SideWndwBhvr {
           SideWndwMangr.changeHighlightState(true,true,ToolBag.menu.getNav()[0],ToolBag.menu.getNav()[1]);
         }
         case "INTERACT" -> {ToolBag.displayItemDescription();}
+      }}
+      case"JOURNAL"->{switch (GameLoop.associatedKey) { //When in |LEVEL| state
+        case "UP", "DOWN", "LEFT", "RIGHT"-> {
+          SideWndwMangr.changeJournalHighlightState(false);
+          TBoxBhvr.clearTextBox(); Journal.menu.move(GameLoop.associatedKey); Journal.updateSubText(); Debugger.JrnlDebugger();
+          SideWndwMangr.changeJournalHighlightState(true);
+
+        }
+        case "INTERACT" -> {if(Journal.getHighlightedQuest() != null){Journal.displayInteractText();}}
       }}
     }
   }

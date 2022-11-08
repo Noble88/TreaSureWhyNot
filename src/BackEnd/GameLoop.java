@@ -5,6 +5,7 @@ import BackEnd.GameBehaviors.LevelBhvr;
 import BackEnd.GameBehaviors.ScreenCover.PauseScreen.PauseBhvr;
 import BackEnd.GameBehaviors.ScreenCover.PauseScreen.Settings.KeyBinds;
 import BackEnd.GameBehaviors.SideWndwBhvr;
+import BackEnd.GameBehaviors.SideWndwElmnts.Journal;
 import BackEnd.LevelObjects.Events;
 import FrontEnd.Window;
 import FrontEnd.Managers.LevMangr;
@@ -44,12 +45,14 @@ public class GameLoop {
 
   public static void inputDirector() throws IOException, ClassNotFoundException, InterruptedException {
     //System.out.println("game state:"+gameState);
+
+    Journal.updateAllCompletion(); //DONT DO THIS THIS IS A TEST
     if(inPlayableState){
       switch(associatedKey){ //GLOBAL KEY BINDINGS
         case "MAP"     ->{}
-        case "JOURNAL" ->{}
+        case "JOURNAL" ->{SideWndwBhvr.switchTabs("JOURNAL"); }
         case "TREASURE"->{SideWndwBhvr.switchTabs("TREASURE");}
-        case "TOOL"    ->{SideWndwBhvr.switchTabs("TOOLS");}
+        case "TOOL"    ->{SideWndwBhvr.switchTabs("TOOLS");   }
         case "PAUSE"   ->{PauseBhvr.togglePauseScreen(); PauseBhvr.justedPaused=true;}
       }
     }

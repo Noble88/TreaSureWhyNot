@@ -1,7 +1,9 @@
 package FrontEnd.Managers;
 
 import BackEnd.GameBehaviors.LevelBhvr;
+import BackEnd.GameBehaviors.SideWndwElmnts.Journal;
 import FrontEnd.Colors.SideWindowBg;
+import FrontEnd.Managers.ScreenCover.ScreenCoverMangr;
 import FrontEnd.Window;
 
 import java.io.IOException;
@@ -28,6 +30,9 @@ public class SideWndwMangr {
     clearCells();
     updateTopCells(header);
   }
+
+
+
   public static void updateTopCells(char[][] arr){
     for(byte row=1; row<5; row++){
       for(byte col=0; col<SideWndwMangr.xB-1; col++){
@@ -45,6 +50,11 @@ public class SideWndwMangr {
   }
   public static void updateCell(String e, byte[] pos){
         Window.sideWndwCells[pos[0]][pos[1]].setText(e);
+  }
+  public static void updateLine(String str, int line){
+    for(byte i=0; i<(SideWndwMangr.xB-1) && i<str.length();i++){
+      updateCell(str.substring(i,i+1),new byte[]{(byte) ((byte) line+6),i});
+    }
   }
   public static void clearCells(){
     for(byte row=1; row<SideWndwMangr.yB-1; row++){
@@ -73,6 +83,20 @@ public class SideWndwMangr {
     SideWindowBg.printGridChecker();
      */
   } //grey tiles for tool & bag UI
+
+  public static void changeJournalHighlightState(boolean add){
+    byte y= (byte) (6 + Journal.menu.getNav()[0]);
+    for(byte x=0;x<SideWndwMangr.xB-1;x++){ //modify highlights for one 1 row
+      SideWindowBg.gridChecker[y][x]=add;
+    }
+    SideWindowBg.repaintAll();
+  }
+  public static void removeAllSideWindowHighlight(){
+    for(byte r=0; r<SideWndwMangr.yB;r++){
+      for(byte c=0; c<SideWndwMangr.xB-1;c++) {
+        SideWindowBg.gridChecker[r][c]=false;
+      }}
+  }
 
 
   public static void clearSideWindowBg(boolean onlyBottom){
