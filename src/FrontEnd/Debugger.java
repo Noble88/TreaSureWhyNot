@@ -85,8 +85,8 @@ public class Debugger {
     if(Journal.getHighlightedQuest()!=null){
       System.out.println(
           "HIGHLIGHTED QUEST ->  NAME: ("+Journal.getHighlightedQuest().name+")  |  " +
-          "TaskNum: ("+Journal.getHighlightedQuest().taskNum+")  |  " +
-          "Is Current Task Completed: ("+Journal.getHighlightedQuest().getCurTask().getIsComplete()+")"
+          "TaskNum: ("+Journal.getHighlightedQuest().taskNum+")  |  "
+          //"Is Current Task Completed: ("+Journal.getHighlightedQuest().getCurTask().getIsComplete()+")"
       );}
     else{System.out.println("NO QUEST IN THIS SLOT");}
   }

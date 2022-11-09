@@ -3,6 +3,7 @@ package BackEnd.GameBehaviors.SideWndwElmnts;
 import BackEnd.GameBehaviors.HelpElmnts.MenuCus;
 import BackEnd.GameBehaviors.SideWndwBhvr;
 import BackEnd.GameBehaviors.SideWndwElmnts.SideWndwObjs.Jrnl.Quest;
+import BackEnd.GameBehaviors.TBoxBhvr;
 import FrontEnd.Debugger;
 import FrontEnd.Managers.SideWndwMangr;
 import FrontEnd.Managers.TBoxMangr;
@@ -27,31 +28,34 @@ public class Journal {
   }
 
   public static void displayInteractText() throws InterruptedException {
-    System.out.println("QUEST INTERACT TEXT "+quests.get(menu.getNav()[0]).getInteractText());
-    TBoxMangr.updateTextCell(quests.get(menu.getNav()[0]).getInteractText(),10);
+    TBoxBhvr.clearTextBox(false);
+    TBoxBhvr.createText(quests.get(menu.getNav()[0]).getInteractText(),10);
   }
 
-  public static void checkQuestsForCompletion(){
-    for(byte i=0; i<quests.size(); i++){ quests.get(i).checkComplition(); }
+  public static void checkQuestsForCompletion() throws InterruptedException {
+    for(byte i=0; i<quests.size(); i++){
+      quests.get(i).checkCompletion();
+      if(quests.get(i).done){quests.remove(i); i--;}
+    }
+    if(SideWndwBhvr.curTab.equals("JOURNAL")){displayQuests(); updateSubText();}
   }
 
   public static Quest getHighlightedQuest(){
     if(quests.size()>menu.getNav()[0]) return quests.get(menu.getNav()[0]);
     return null;
   }
-
   //endregion
 
-  public static void updateAllCompletion(){
-    for(byte i=0; i<quests.size(); i++){checkQuestsForCompletion();}
-    if(SideWndwBhvr.curTab.equals("JOURNAL")){Journal.updateSubText();}
-  }
   public static void updateSubText() {
+    /*
     SideWndwMangr.updateLine("------------", 15);
     if (getHighlightedQuest() != null) {
       if (getHighlightedQuest().getCurTask().getIsComplete()) {SideWndwMangr.updateLine("COMPLETED!", 16);}
       else {SideWndwMangr.updateLine("NOT DONE", 16);}
     }
     else{SideWndwMangr.updateLine("            ",16);}
+
+     */
   }
+
 }

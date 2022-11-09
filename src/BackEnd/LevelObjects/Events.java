@@ -1,5 +1,6 @@
 package BackEnd.LevelObjects;
 
+import BackEnd.GameBehaviors.LevelBhvr;
 import BackEnd.GameBehaviors.SideWndwElmnts.ToolBag;
 import BackEnd.GameBehaviors.SideWndwElmnts.TresBag;
 import BackEnd.GameBehaviors.TBoxBhvr;
@@ -172,6 +173,17 @@ public class Events implements Serializable {
     }
   }
 
+  public static class IntrDel extends Events implements Serializable{
+    byte[] pos = new byte[]{-1,-1};
+    public IntrDel(byte[] pos){
+      this.pos[0]=pos[0]; this.pos[1]=pos[1];
+    }
+    public boolean triggerEvent() throws InterruptedException, IOException, ClassNotFoundException {
+      LevelBhvr.curLev.flipE(pos,true);
+      return false;
+    }
+  }
+
   public static class GetTool extends Events implements Serializable{
     public String text="";
     public Tools tool;
@@ -196,7 +208,8 @@ public class Events implements Serializable {
     }
   }
 
-  public boolean triggerEvent() throws InterruptedException, IOException, ClassNotFoundException {return false;} //NOTE: false is returned to tell program it has no events need to execute
+  //!!!!NOTE: false is returned to tell program it has no events need to execute
+  public boolean triggerEvent() throws InterruptedException, IOException, ClassNotFoundException {return false;}
   public static Events relatedEvent=null;
   public static String gameStateHolder="N/A";
   public static void initiateEventState(Events event){

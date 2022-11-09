@@ -3,13 +3,13 @@ package BackEnd.GameBehaviors.SideWndwElmnts.SideWndwObjs.Jrnl;
 import BackEnd.GameBehaviors.SideWndwBhvr;
 import BackEnd.GameBehaviors.SideWndwElmnts.Journal;
 import FrontEnd.Managers.ScreenCover.ScreenCoverMangr;
-import FrontEnd.Managers.SideWndwMangr;
 
 import java.util.ArrayList;
 
 public class Quest {
   public String name="";
   public byte taskNum=0;
+  public boolean done=false;
   private ArrayList<Tasks> tasks = new ArrayList<>();
 
   public Quest(String name, ArrayList<Tasks> tasks){
@@ -20,11 +20,15 @@ public class Quest {
     if(SideWndwBhvr.curTab.equals("JOURNAL")){
       Journal.displayQuests();} //refreshes quest if obtain quest when on journal
   }
-  public void checkComplition(){getCurTask().checkCompletion();}
+  public void checkCompletion() throws InterruptedException {
+    if(getCurTask().checkCompletion()){
+      if(taskNum+1==tasks.size()){done=true;}
+      else{taskNum++;}
+    }
+  }
 
   public String getInteractText(){
-    if( (getCurTask().getIsComplete()) ){return getCurTask().getFinishText();}
-    else{return getCurTask().getInitialText();}
+    return getCurTask().getQuestText();
   }
 
   public Tasks getCurTask(){return tasks.get(taskNum);}

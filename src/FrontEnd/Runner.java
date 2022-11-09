@@ -64,7 +64,7 @@ public class Runner {
     if(!deleteFilesOnStart){LoadLevels.levelSelect(LoadPlayerData.getSavedLevelFileDirectoryPlayerIn());} //grab the level that the player is on
     else{LoadLevels.levelSelect(curFilePath+"/src/BackEnd/FileManagement/SavedData/Assets/Levels/LivelyLeafs/0,0.txt");}
 
-    Debugger.debugGame(false,false,true,false,
+    Debugger.debugGame(false,true,true,true,
         false,false,true,false,false,false);
 
     ScreenCoverMangr.warmUpScreenCover();
@@ -95,13 +95,13 @@ public class Runner {
 
       //region add Quests
       Journal.quests.add(new Quest("QUEST TEST 1", new ArrayList<Tasks>(){{
-            add(new Tasks.SpeakToNpcGetTestTask('s',"INTIAL TEXT","FINISHED QUEST TEXT"));
+            add(new Tasks.IntrSymGetTestTask('s',"INTIAL TEXT"));
       }}));
       Journal.quests.add(new Quest("QUEST TEST 2", new ArrayList<Tasks>(){{
-        add(new Tasks.SpeakToNpcGetTestTask('S',"INTIAL TEXT","FINISHED QUEST TEXT"));
+        add(new Tasks.IntrSymGetTestTask('S',"INTIAL TEXT"));
       }}));
       Journal.quests.add(new Quest("QUEST TEST 3", new ArrayList<Tasks>(){{
-        add(new Tasks.SpeakToNpcGetTestTask('k',"INTIAL TEXT","FINISHED QUEST TEXT"));
+        add(new Tasks.IntrSymGetTestTask('k',"INTIAL TEXT"));
       }}));
       //endregion
       //region test live and input objects
@@ -125,6 +125,13 @@ public class Runner {
 
       InputObjs obj4 = new InputObjs.visibleObj(new byte[]{13,6},'T', new Events.BscText("TEST TEXT"));
       LevelBhvr.curLev.inputObjs.add(obj4);
+
+      InputObjs obj44 = new InputObjs.visibleObj(new byte[]{16,6},'t', new Events.BscText(
+          "THIS IS TO SEE HOW TEXT IS SEPERATED AS WELL AS WHAT I LOOKS LIKE WHEN IT GOES TO THE NEXT PAGE" +
+              "THE NEXT PAGE HAS A WAIT TIME AND DELAY TO INSURE THAT THE PLAYER CAN KEEP UP WITH THE TEXT SPEED"
+
+      ));
+      LevelBhvr.curLev.inputObjs.add(obj44);
 
       InputObjs obj5 = new InputObjs.visibleObj(new byte[]{13,7},'s', new Events.SelectBox(
           new ArrayList<Events>(){{add(new Events.BscText("1!")); add(new Events.BscText("2!"));

@@ -19,11 +19,18 @@ public class InputObjs implements Serializable{ //Game Play Object
       this.event = event;
       LevelBhvr.curLev.setE(pos,sym,true);
     }
+    public visibleObj(LevelBhvr.Level lev, byte[] pos, char sym, Events event){
+      this.pos = new byte[]{pos[0],pos[1]};
+      this.event = event;
+      lev.setE(pos,sym,true);
+    }
+
+
 
     public byte[] getPos(){return pos;}
 
     public void run() throws InterruptedException, IOException, ClassNotFoundException {
-      if(plyrIntrCheck(pos)){
+      if(plyrIntrCheck(pos) && event!=null){
         if(event.triggerEvent()){Events.initiateEventState(event);}}
     }
   }

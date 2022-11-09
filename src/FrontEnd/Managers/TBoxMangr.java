@@ -28,15 +28,14 @@ public class TBoxMangr {
       }
     }
   }
-  public static void updateTextCell(String text,int speed) throws InterruptedException {
-    for(byte row=0; row<yB-1; row++){
+  public static void updateTextCell(String text, int line, int speed) throws InterruptedException {
+
       for(byte col=1; col<xB-1; col++){
-        Window.textBoxCells[row][col].setText(text.substring(0,1));
+        Window.textBoxCells[line][col].setText(text.substring(0,1));
         text=text.substring(1);
         if(text.length()==0){return;}
         Thread.sleep(speed);
       }
-    }
   }
 
 

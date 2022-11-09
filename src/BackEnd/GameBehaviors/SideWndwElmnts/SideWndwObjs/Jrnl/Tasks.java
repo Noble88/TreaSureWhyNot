@@ -3,8 +3,10 @@ package BackEnd.GameBehaviors.SideWndwElmnts.SideWndwObjs.Jrnl;
 
 //NOTE: Task DO NOT reward player. Task are for NPC & other to see if have complete specific tasks (NPC will reward player based on task progression)
 
+import BackEnd.GameBehaviors.TBoxBhvr;
 import BackEnd.GameLoop;
 import BackEnd.PlayerData;
+import FrontEnd.Managers.TBoxMangr;
 
 public class Tasks {
 
@@ -12,32 +14,45 @@ public class Tasks {
   //TODO MAKE: NPC/world need to know what type of tasks they should check for (either by name or ID)
 
   //TODO MAKE: need to make ways to check certain catagories of tasks ex: need to check "toolGet" type tasks when getting tools
-  //region Speak to NPC TASK
-  public static class SpeakToNpcGetTestTask extends Tasks {
-    boolean isComplete =false; char npc; String startText,finishText;
+  //region TEST
+  public static class IntrSymGetTestTask extends Tasks {
+    char npc; String questText;
 
-    public SpeakToNpcGetTestTask(char sym, String initialText, String finishText){
-      npc=sym; startText=initialText; this.finishText=finishText;
+    public IntrSymGetTestTask(char sym, String questText){
+      npc=sym; this.questText =questText;
     }
+    public String getQuestText(){return questText;}
 
-    public String getInitialText(){return startText;}
-    public String getFinishText(){return finishText;}
-    public boolean getIsComplete(){return isComplete;} public void setIsComplete(boolean val){isComplete=val;}
+    public boolean checkCompletion() throws InterruptedException {
+      if(PlayerData.symFacingFG==npc && GameLoop.associatedKey.equals("INTERACT")){
+        TBoxBhvr.createText("I COMPLETED A QUEST",10); return true;
+      };
+      return false;
+    }
+  }
+  //endregion
+  //region Interaction Based Tasks
+  public static class IntrSymGetText extends Tasks {
+    char sym; String questText, finishText;
 
-    public void completeTask(){ System.out.println("TASK HAS BEEN COMPLETED");}
+    public IntrSymGetText(char sym, String questText, String finishText){
+      this.sym=sym; this.questText =questText; this.finishText =finishText;
+    }
+    public String getQuestText(){return questText;}
 
-    public void checkCompletion(){
-      if(PlayerData.symFacingFG==npc && GameLoop.associatedKey.equals("INTERACT")){isComplete =true;};
+    public boolean checkCompletion() throws InterruptedException {
+      if(PlayerData.symFacingFG==sym && GameLoop.associatedKey.equals("INTERACT") && GameLoop.gameState.equals("LEVEL") ){
+        TBoxBhvr.clearTextBox(false);
+        TBoxBhvr.createText(finishText,10);
+        Thread.sleep(1500); TBoxBhvr.clearTextBox(false); return true;};
+      return false;
     }
   }
   //endregion
 
-  public String getInitialText(){return "N/A initialText";}
-  public String getFinishText(){return "N/A finishText";}
-  public boolean getIsComplete(){System.out.println("EMPTY ISCOMPLETED"); return false;} public void setIsComplete(boolean val){}
 
-
-  public void checkCompletion(){System.out.println("EMPTY COMPLITION");}
+  public String getQuestText(){return "N/A initialText";}
+  public boolean checkCompletion() throws InterruptedException {System.out.println("EMPTY COMPLITION");return false;}
   //TODO: MAKE CHECK ALL METHOD AND PUT IT WHERE IT IS NEEDED
   public void completeTask(){System.out.println("EMPTY COMPLETED TASKS");}
 }

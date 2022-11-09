@@ -46,7 +46,7 @@ public class GameLoop {
   public static void inputDirector() throws IOException, ClassNotFoundException, InterruptedException {
     //System.out.println("game state:"+gameState);
 
-    Journal.updateAllCompletion(); //DONT DO THIS THIS IS A TEST
+    Journal.checkQuestsForCompletion(); //DONT DO THIS THIS IS A TEST
     if(inPlayableState){
       switch(associatedKey){ //GLOBAL KEY BINDINGS
         case "MAP"     ->{}

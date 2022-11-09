@@ -1,5 +1,10 @@
 package BackEnd.FileManagement.Loaders;
 import BackEnd.GameBehaviors.LevelBhvr;
+import BackEnd.GameBehaviors.SideWndwElmnts.Journal;
+import BackEnd.GameBehaviors.SideWndwElmnts.SideWndwObjs.Jrnl.Quest;
+import BackEnd.GameBehaviors.SideWndwElmnts.SideWndwObjs.Jrnl.Tasks;
+import BackEnd.LevelObjects.Events;
+import BackEnd.LevelObjects.InputObjs;
 import FrontEnd.Runner;
 
 
@@ -13,6 +18,7 @@ import static FrontEnd.Runner.curFilePath;
 
 
 public class LoadLevels {
+  //Level Spawn LivelyGreens (0,0)
 
   public static void loadFarmenTump() throws InterruptedException, IOException, ClassNotFoundException{
     ArrayList<byte[]> pos1, pos2, pos3, pos4 = new ArrayList<>(){};
@@ -125,7 +131,16 @@ public class LoadLevels {
       add("PLAYER GRASS RUFFLE"); add("BUSH GRASS TUF"); add("DIRT GRASS BLEND");add("DIRT TREE BLEND");
     }});
       //endregion
-      //region Add GamePlay Objects
+//forced to create the level as can't write and save to it & assign curLev cuz methods for GamePlay Objects won't work otherwise
+    //region Add GamePlay Objects
+      //region Pretty Rock Quest
+    Journal.quests.add(new Quest("Shiny Rock?", new ArrayList<Tasks>(){{
+      add(new Tasks.IntrSymGetText('⎌',"Whats that rock glowing for?","BAH! just some glass..."));
+      add(new Tasks.IntrSymGetText(',',"Touch grass because ur sad","The grass feels nice"));
+    }}));
+    InputObjs specialRock = new InputObjs.visibleObj(shinyGreen, new byte[]{15,15},'⎌',new Events.IntrDel(new byte[]{15,15}));
+    shinyGreen.inputObjs.add(specialRock);
+      //endregion
 
       //endregion
     //endregion
@@ -204,7 +219,7 @@ public class LoadLevels {
 
     //region Write Levels
     createLevelFile(shinyGreen);
-      createLevelFile(home);
+    createLevelFile(home);
     createLevelFile(nestledNuz);
     createLevelFile(shrubbedShrubbery);
     createLevelFile(plainnedOutGrass);
