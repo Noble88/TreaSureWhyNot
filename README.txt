@@ -2,7 +2,8 @@
 -----By Henry David Burton-----
 
 ---HOW TO PLAY---
--Default Controles -> Left,Right,Down,Up Arrows to move  |  Enter to interacts  |  esc = back/cancle | Rest are self explaintory (in game) |
+-Default Controles -> Left,Right,Down,Up Arrows to move  |  Enter to interacts  |  esc = back/cancel/Pause | Rest are self explaintory (in game) |
+-In Pause Screen can change -> Key Bindings (will save) / Display Size (will not save) / And save the game /
 
 ---File Locations---
 -for available keys   : FrontEnd/Window -> Method -> warmUpKeyListener <- (near the bottom)   
@@ -15,4 +16,4 @@
 ---Debugger/Code Workings---
 -In order to save you need to change the boolean variable "deleteFilesOnStart" inside of "FrontEnd/Runner" line 39~ (could break game tho idk)
 
---IN ORDER TO SEE VRESION BEFORE v2.1.0 THEN GO TO -> https://drive.google.com/drive/folders/1QZYHirrZv8MxfAhGiwa1wsFlJJnA6VJk?usp=share_link
+--IN ORDER TO SEE VERSION BEFORE v2.1.0 THEN GO TO -> https://drive.google.com/drive/folders/1QZYHirrZv8MxfAhGiwa1wsFlJJnA6VJk?usp=share_link

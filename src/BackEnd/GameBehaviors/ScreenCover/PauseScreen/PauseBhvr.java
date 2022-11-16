@@ -2,10 +2,12 @@ package BackEnd.GameBehaviors.ScreenCover.PauseScreen;
 
 import BackEnd.GameBehaviors.ScreenCover.PauseScreen.Settings.Help;
 import BackEnd.GameBehaviors.ScreenCover.PauseScreen.Settings.KeyBinds;
+import BackEnd.GameBehaviors.ScreenCover.PauseScreen.Settings.Video;
 import BackEnd.GlobalInfo.GlobMeths;
 import FrontEnd.Managers.ScreenCover.PauseScreen.PauseMangr;
 import FrontEnd.Managers.ScreenCover.PauseScreen.Settings.HelpManagr;
 import FrontEnd.Managers.ScreenCover.PauseScreen.Settings.KeyBindingsMangr;
+import FrontEnd.Managers.ScreenCover.PauseScreen.Settings.VideoMangr;
 import FrontEnd.Window;
 
 import java.io.IOException;
@@ -25,15 +27,19 @@ public class PauseBhvr {
 
     if(inSubMenu) {
       switch (menuIn) {
+        case "Video" -> {Video.keyBindNav();}
+        //case "Audio" -> {}
         case "Key Bindings"->{KeyBinds.keyBindNav();}
         case "Help"->{Help.keyBindNav();}
+        //case "Dev" -> {}
+
       }
     }
 
     else{
       inSubMenu=true;
       switch (key) {
-        case "1" -> {/*VIDEO SETTINGS*/}
+        case "1" -> {VideoMangr.showPage();menuIn="Video";}
         case "2" -> {/*AUDIO SETTINGS*/}
         case "3" -> {KeyBindingsMangr.displayKeyBindings();menuIn="Key Bindings";}
         case "4" -> {HelpManagr.showPage1();menuIn="Help";}

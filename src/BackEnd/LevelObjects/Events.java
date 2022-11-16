@@ -247,7 +247,6 @@ public class Events implements Serializable {
         this.sym[i]=sym[i];
         stage[i]=0;
       }
-      System.out.println("STAGE = "+ Arrays.toString(stage));
 
       this.speed = new int[speed.length];
       for(byte i=0;i<speed.length;i++){

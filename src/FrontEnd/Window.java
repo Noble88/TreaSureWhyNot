@@ -12,6 +12,8 @@ import java.util.HashMap;
 //packages
 import BackEnd.GameLoop;
 import BackEnd.GameBehaviors.LevelBhvr;
+import FrontEnd.Colors.LevBg;
+import FrontEnd.Colors.SideWindowBg;
 import FrontEnd.Managers.SideWndwMangr;
 import FrontEnd.Managers.TBoxMangr;
 
@@ -25,10 +27,10 @@ public class Window {
 
   //region ---Window declaration and Initialization---
 
-  static JFrame window = new JFrame();
+  public static JFrame window = new JFrame();
   static JLayeredPane elementHolder = new JLayeredPane(); //Element Holder -> holds everything assigned window size will be the largest
 
-  static int[] windowSize = new int[]{900,700}; //width, height
+  public static int[] windowSize = new int[]{900,700}; //width, height
   //static byte gameSizeMultiplyer
 
 
@@ -57,6 +59,7 @@ public class Window {
   public static final byte yBsw = SideWndwMangr.yB;
   public static JTextPane[][] sideWndwCells = new JTextPane[yBsw][xBsw];
   public static int[] swBnds = new int[]{levBnds[2], levBnds[1],getWinSizeX(xBsw),levBnds[3]+tbBnds[3]};
+
   //endregion
   //region --Side Window Elements Background--
   public static JPanel swBg = new JPanel();
@@ -80,7 +83,7 @@ public class Window {
     //frame.setLayout(new GridBagLayout());
     window.setSize(windowSize[0], windowSize[1]);
     window.setUndecorated(false);
-    window.setResizable(false);
+    window.setResizable(true);
     window.setVisible(true);
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     //endregion
@@ -155,6 +158,48 @@ public class Window {
     createCells(screenCover, screenCoverCells, yBsc, xBsc);
     window.addKeyListener(listener);
   }
+
+  //region Changing Window Attributes and Other Stuff
+  public static void resizeAll(){
+    window.setSize(windowSize[0], windowSize[1]);
+    screenCover.setBounds(0,0,windowSize[0],windowSize[1]);
+    elementHolder.setBounds(0,0, windowSize[0], windowSize[1]);
+    scBnds = new int[]{0,0, windowSize[0], windowSize[1]};
+    levBnds = new int[]{0,0,getWinSizeX(xBlev),getWinSizeY(yBlev)};
+
+
+    swBnds = new int[]{levBnds[2], levBnds[1],getWinSizeX(xBsw),levBnds[3]+tbBnds[3]};
+    tbBnds = new int[]{levBnds[0], levBnds[3],levBnds[2],getWinSizeY(yBtbox)};
+    levGrid.setBounds(levBnds[0], levBnds[1], levBnds[2], levBnds[3]);
+    levBg.setBounds(levBnds[0], levBnds[1], levBnds[2], levBnds[3]); //Level Background
+    textBox.setBounds(tbBnds[0],tbBnds[1],tbBnds[2],tbBnds[3]);
+    sideWindow.setBounds(swBnds[0],swBnds[1],swBnds[2],swBnds[3]);
+    swBg.setBounds(swBnds[0], swBnds[1], swBnds[2], swBnds[3]);
+
+    LevBg.height=FrontEnd.Window.levBnds[3]/ FrontEnd.Window.yBlev;
+    LevBg.width =FrontEnd.Window.levBnds[2]/ FrontEnd.Window.xBlev;
+    SideWindowBg.height=FrontEnd.Window.swBnds[3]/FrontEnd.Window.yBsw;
+    SideWindowBg.width=FrontEnd.Window.levBnds[2]/ FrontEnd.Window.xBlev;
+    LevBg.repaintAll();
+    SideWindowBg.repaintAll();
+
+  }
+  public static int getCurretFontSize(){return levGridCells[0][0].getFont().getSize();}
+  public static void modifyAllCellsFontSize(int fontSize) {
+    Font font = new Font("Monospaced", Font.CENTER_BASELINE, fontSize);
+    modifyCellsFontSize(levGridCells, yBlev, xBlev,font);
+    modifyCellsFontSize(textBoxCells, yBtbox, xBtbox,font);
+    modifyCellsFontSize(sideWndwCells, yBsw, xBsw,font);
+    modifyCellsFontSize(screenCoverCells, yBsc, xBsc,font);
+  }
+  public static void modifyCellsFontSize(JTextPane[][] grid, byte rMax, byte cMax, Font font){
+    for(byte row = 0; row< rMax; row++){
+      for(byte col = 0; col< cMax; col++){
+        grid[row][col].setFont(font);
+      }
+    }
+  }
+  //endregion
   //endregion
 
   //region grid layout & formating
@@ -181,6 +226,9 @@ public class Window {
       }
     }
   }
+
+
+
   //endregion
 
   //region keyboard stuff

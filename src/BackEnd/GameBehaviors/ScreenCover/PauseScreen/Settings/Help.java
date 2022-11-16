@@ -16,7 +16,6 @@ public class Help {
       case"PAUSE" ->{page=1; PauseBhvr.leaveSubMenu();}
       case "LEFT"->{pageNav(false);}
       case "RIGHT"->{pageNav(true);}
-
     }
   }
   public static void pageNav(boolean addToPage) throws IOException {
