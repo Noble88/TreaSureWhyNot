@@ -32,8 +32,6 @@ public class LevBg {
           return txrColors.get(tilesChar.get(sym)+"01");
         }
         else {return txrColors.get("error01");}
-
-
       }
       //endregion
 
@@ -83,7 +81,6 @@ public class LevBg {
               if (adjacentSymCompare(0,-1, tilesName.get("grass"),false)){//left
                 g2d.fillRect(0,0,(int) (width*.10),height);
               }
-
             }
           }
           case "DIRT GRASS BLEND"->{

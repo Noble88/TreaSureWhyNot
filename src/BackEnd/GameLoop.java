@@ -7,6 +7,7 @@ import BackEnd.GameBehaviors.ScreenCover.PauseScreen.Settings.KeyBinds;
 import BackEnd.GameBehaviors.SideWndwBhvr;
 import BackEnd.GameBehaviors.SideWndwElmnts.Journal;
 import BackEnd.LevelObjects.Events;
+import FrontEnd.Colors.LevColors;
 import FrontEnd.Window;
 import FrontEnd.Managers.LevMangr;
 
@@ -27,7 +28,8 @@ public class GameLoop {
 
   public static void gameLoop() throws IOException, ClassNotFoundException, InterruptedException {
     if(runWorld){
-      if(tick==40){tick=0;}
+      if(tick==40){tick=0;
+        LevColors.progressTime();}
       tick++;
       LevelBhvr.curLev.runLiveObjects();
     }

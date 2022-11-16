@@ -16,7 +16,10 @@ public class GlobData {
   //region File Directories Initialization & Declaration
   public static HashMap<String, String> fileFinder = new HashMap<>();
   //endregion
-
+  //region Weather and Time Color Initialization & Declaration
+  public static HashMap<String, Color> weatherColor = new HashMap<>();
+  //endregion
+  public static byte time=22;
   public static void warmUpGlobData(){
     //region Tiles and Tile Colors
     // NOTE: 00 = foreground / 01 = background / 02-49 = Layers / 50-99 Blends (the seem between 2 tiles)
@@ -57,7 +60,8 @@ public class GlobData {
     txrColors.put("deadTree01",new Color(191, 144, 0));
       //endregion
     tilesName.put("cattail",'ľ'); tilesChar.put('ľ',"cattail");
-      //region DeadTree Colors
+      //region Cattail Colors
+    //TODO CHANGE COLORS!
     txrColors.put("cattail00",new Color(54, 120, 65));
     txrColors.put("cattail01",new Color(191, 144, 0));
       //endregion
@@ -91,6 +95,12 @@ public class GlobData {
     txrColors.put("sharpDirt00",new Color(224, 142, 27));
     txrColors.put("sharpDirt01", new Color(138, 87, 45));
         //endregion
+    tilesName.put("gravel",'▓'); tilesChar.put('▓',"gravel");
+      //region gravel Colors
+    txrColors.put("gravel00",new Color(116, 109, 100));
+    txrColors.put("gravel01", new Color(80, 77, 75));
+      //endregion
+
     tilesName.put("mntn",'^'); tilesChar.put('^',"mntn");
       //region mntn Colors
         txrColors.put("mntn00",new Color(186, 123, 35 ));
@@ -107,6 +117,12 @@ public class GlobData {
       //endregion
       //endregion
       //region---Snow---
+    tilesName.put("spruce ",'↟'); tilesChar.put('↟',"spruce");
+      //region water Color
+    txrColors.put("spruce00",new Color(75, 66, 53));
+    txrColors.put("spruce01",new Color(131, 122, 115));
+      //endregion
+
     //TODO add: snow
       //endregion
     //endregion
@@ -136,11 +152,19 @@ public class GlobData {
       //endregion
       //endregion
       //region---Human Made---
+        //region -Out In Nature-
     tilesName.put("rope",'ʇ'); tilesChar.put('ʇ',"rope");
       //region rope Colors
     txrColors.put("rope00",txrColors.get("mntn00"));
     txrColors.put("rope01",txrColors.get("mntn01"));
       //endregion
+    tilesName.put("signPostL",'⍇'); tilesChar.put('⍇',"signPostL");
+      //region rope Colors
+    txrColors.put("signPostL00",new Color(115, 89, 32));
+    txrColors.put("signPostL01",txrColors.get("woodFlr01"));
+      //endregion
+
+        //endregion
       //endregion
     //endregion
     //region ->UI elements<-
@@ -164,6 +188,15 @@ public class GlobData {
     fileFinder.put("Levels",curFilePath+"/src/BackEnd/FileManagement/SavedData/Assets/Levels");
     fileFinder.put("PlayerData",curFilePath+"/src/BackEnd/FileManagement/SavedData/PlayerData");
     fileFinder.put("KeyBinds",curFilePath+"/src/BackEnd/FileManagement/SavedData/Settings/Key Bindings.txt");
+    //endregion
+    //region Weather and Time Colors
+    weatherColor.put("day",new Color(161, 155, 116, 63));
+    weatherColor.put("afternoon",new Color(192, 185, 132, 63));
+    weatherColor.put("evening",new Color(88, 98, 103, 63));
+    weatherColor.put("night",new Color(33, 46, 112));
+    weatherColor.put("dark",new Color(1, 14, 80));
+    weatherColor.put("spooky",new Color(0, 4, 31));
+
     //endregion
   }
   public static boolean hitLevBrdr=false;

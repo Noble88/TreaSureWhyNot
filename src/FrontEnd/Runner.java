@@ -21,6 +21,7 @@ import BackEnd.PlayerData;
 import BackEnd.FileManagement.Loaders.LoadLevels;
 import BackEnd.GameBehaviors.SideWndwElmnts.SideWndwObjs.TresItem;
 import FrontEnd.Colors.LevBg;
+import FrontEnd.Colors.LevColors;
 import FrontEnd.Colors.SideWindowBg;
 import FrontEnd.Managers.LevMangr;
 import FrontEnd.Managers.ScreenCover.ScreenCoverMangr;
@@ -73,6 +74,7 @@ public class Runner {
     SideWndwMangr.warmUpSideWndwMangr();
     LevBg.warmUpLevelBackground();
     SideWindowBg.warmUpSideWindowBackground();
+    LevColors.warmUpWindowTint();
     //endregion
     //region Make the screen presentable
     LevMangr.displayWholeGrid();

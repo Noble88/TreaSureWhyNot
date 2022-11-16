@@ -203,6 +203,11 @@ public class LoadLevels {
     }});
     //endregion
     //region Add Gameplay Objects
+      //region Sign Post(s)
+    InputObjs toFarmPost = new InputObjs.visibleObj("toFarmPost",shrubbedShrubbery,new byte[]{7,5},'⍇',
+        new Events.BscText("⇽ (Persons)'s Farm"));
+    shrubbedShrubbery.inputObjs.add(toFarmPost);
+      //endregion
       //region Conquering the Snake Quest
     /*
     HOW I'M GONA DO IT
