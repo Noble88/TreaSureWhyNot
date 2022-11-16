@@ -33,7 +33,7 @@ import java.util.ArrayList;
 //NOTE: version naming goes as following relase.majorAddition.Patch
 //TODO SENDING IT OUT: before sharing final results: toggle saving in settings / make exe file / bug check... / help menu / TBA
 //TODO EFFICIENCY: organize imports to reduce loading time
-
+//TODO CODING: make it so all "static finals" are put in all caps
 public class Runner {
   public static String curFilePath=System.getProperty("user.dir");
   public static boolean settingUp=true;
@@ -94,52 +94,44 @@ public class Runner {
       //region modifyable start
 
       //region add Quests
-      Journal.quests.add(new Quest("QUEST TEST 1", new ArrayList<Tasks>(){{
-            add(new Tasks.IntrSymGetTestTask('s',"INTIAL TEXT"));
-      }}));
-      Journal.quests.add(new Quest("QUEST TEST 2", new ArrayList<Tasks>(){{
-        add(new Tasks.IntrSymGetTestTask('S',"INTIAL TEXT"));
-      }}));
-      Journal.quests.add(new Quest("QUEST TEST 3", new ArrayList<Tasks>(){{
-        add(new Tasks.IntrSymGetTestTask('k',"INTIAL TEXT"));
-      }}));
+
       //endregion
       //region test live and input objects
 
-      LiveObjs obj1 = new LiveObjs.CordListMvt('P',new byte[]{5,4}, (byte) 20,
+      LiveObjs obj1 = new LiveObjs.FullCordMvt('P',new byte[]{5,4}, (byte) 20,
           new ArrayList<byte[]>(){{ add(new byte[]{2,4}); add(new byte[]{2,5});
             add(new byte[]{5,5}); add(new byte[]{5,4});}});
       obj1.addWalkableProp(true,"");
       obj1.addPlayerCollisionProp(new Events.BscText("PLAYER COLLIDED"));
       LevelBhvr.curLev.liveObjs.add(obj1);
 
-      LiveObjs obj2 = new LiveObjs.CordListMvt('K',new byte[]{15,6}, (byte) 20,
+      LiveObjs obj2 = new LiveObjs.FullCordMvt('K',new byte[]{15,6}, (byte) 20,
           new ArrayList<byte[]>(){{ add(new byte[]{17,6}); add(new byte[]{17,8});
             add(new byte[]{15,8}); add(new byte[]{15,6});}});
       obj2.addWalkableProp(true,"");
       obj2.addPlayerCollisionProp(new Events.KillPlayerToHome());
       LevelBhvr.curLev.liveObjs.add(obj2);
 
-      InputObjs obj3 = new InputObjs.visibleObj(new byte[]{13,5},'k', new Events.KillPlayerToHome());
+      InputObjs obj3 = new InputObjs.visibleObj("obj3",new byte[]{13,5},'k', new Events.KillPlayerToHome());
       LevelBhvr.curLev.inputObjs.add(obj3);
 
-      InputObjs obj4 = new InputObjs.visibleObj(new byte[]{13,6},'T', new Events.BscText("TEST TEXT"));
+      InputObjs obj4 = new InputObjs.visibleObj("obj4",new byte[]{13,6},'T', new Events.BscText("TEST TEXT"));
       LevelBhvr.curLev.inputObjs.add(obj4);
 
-      InputObjs obj44 = new InputObjs.visibleObj(new byte[]{16,6},'t', new Events.BscText(
-          "THIS IS TO SEE HOW TEXT IS SEPERATED AS WELL AS WHAT I LOOKS LIKE WHEN IT GOES TO THE NEXT PAGE" +
-              "THE NEXT PAGE HAS A WAIT TIME AND DELAY TO INSURE THAT THE PLAYER CAN KEEP UP WITH THE TEXT SPEED"
+      InputObjs obj44 = new InputObjs.visibleObj("obj44",new byte[]{16,6},'t', new Events.BscText(
+          "THIS IS TO SEE HOW TEXT IS SEPARATED AS WELL AS WHAT I LOOKS LIKE WHEN IT GOES TO THE NEXT PAGE" +
+              "AND HAS A WAIT TIME/DELAY TO INSURE THAT THE PLAYER CAN KEEP UP WITH THE TEXT SPEED"
 
       ));
       LevelBhvr.curLev.inputObjs.add(obj44);
 
-      InputObjs obj5 = new InputObjs.visibleObj(new byte[]{13,7},'s', new Events.SelectBox(
+      InputObjs obj5 = new InputObjs.visibleObj("obj5",new byte[]{13,7},'s', new Events.SelectBox(
           new ArrayList<Events>(){{add(new Events.BscText("1!")); add(new Events.BscText("2!"));
             add(new Events.BscText("3!"));}},
           new ArrayList<String>(){{add("choice1"); add("choice2");add("choice3");}}));
       LevelBhvr.curLev.inputObjs.add(obj5);
 
-      InputObjs megaSelectObj = new InputObjs.visibleObj(new byte[]{13,8},'S', new Events.SelectBox(
+      InputObjs megaSelectObj = new InputObjs.visibleObj("megaSelectObj",new byte[]{13,8},'S', new Events.SelectBox(
           new ArrayList<Events>(){{
             add(new Events.BscText("This what the is the basic text event looks like"));
             add(new Events.GetTool("This is the pretext notifying u got an tool",

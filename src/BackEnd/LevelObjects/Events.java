@@ -1,6 +1,8 @@
 package BackEnd.LevelObjects;
 
 import BackEnd.GameBehaviors.LevelBhvr;
+import BackEnd.GameBehaviors.SideWndwElmnts.Journal;
+import BackEnd.GameBehaviors.SideWndwElmnts.SideWndwObjs.Jrnl.Quest;
 import BackEnd.GameBehaviors.SideWndwElmnts.ToolBag;
 import BackEnd.GameBehaviors.SideWndwElmnts.TresBag;
 import BackEnd.GameBehaviors.TBoxBhvr;
@@ -9,6 +11,7 @@ import BackEnd.GameBehaviors.SideWndwElmnts.SideWndwObjs.Tools;
 import BackEnd.GameBehaviors.SideWndwElmnts.SideWndwObjs.TresItem;
 import BackEnd.PlayerData;
 import FrontEnd.Debugger;
+import FrontEnd.Managers.LevMangr;
 import FrontEnd.Managers.ScreenCover.ScreenCoverMangr;
 import FrontEnd.Managers.TBoxMangr;
 import FrontEnd.Runner;
@@ -18,8 +21,29 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class Events implements Serializable {
+
+  public static class EventChain extends Events{
+    ArrayList<Events> events = new ArrayList<>(); int delay=100;
+    public EventChain(ArrayList<Events> eventsArr){
+      events.addAll(eventsArr);
+    }
+    public EventChain(ArrayList<Events> eventsArr, int delay){
+      events.addAll(eventsArr); this.delay=delay;
+    }
+    public boolean triggerEvent() throws InterruptedException, IOException, ClassNotFoundException {
+      for(byte i=0; i<events.size(); i++){
+        events.get(i).triggerEvent();
+        Thread.sleep(delay);
+      }
+      return false;
+    }
+
+  }
+
   public static class KillPlayerToHome extends Events implements Serializable{//when triggered will cover screen and send player to home
     public KillPlayerToHome(){}
     public boolean triggerEvent() throws InterruptedException, IOException, ClassNotFoundException {
@@ -38,15 +62,19 @@ public class Events implements Serializable {
   }
 
   public static class BscText extends Events implements Serializable{
-    public String text="";
-    public BscText (String text){this.text = text;}
-    public boolean triggerEvent() throws InterruptedException {
-      TBoxBhvr.createText(text,10);
+    public String text=""; public int time=10;
 
+    public BscText (String text){this.text = text;}
+    public BscText (String text, int speed){this.text = text; time=speed;}
+
+    public boolean triggerEvent() throws InterruptedException {
+      TBoxBhvr.createText(text,time);
       return false;
     }
+
   }
-  //TODO make a delete  after selection option so can't duplicate text
+
+  //TODO make a delete after selection option so can't duplicate text
   public static class SelectBox extends Events implements Serializable{
     public ArrayList<Events> options = new ArrayList<>();
     public ArrayList<String> optionNames = new ArrayList<>();
@@ -173,17 +201,126 @@ public class Events implements Serializable {
     }
   }
 
-  public static class IntrDel extends Events implements Serializable{
-    byte[] pos = new byte[]{-1,-1};
-    public IntrDel(byte[] pos){
-      this.pos[0]=pos[0]; this.pos[1]=pos[1];
-    }
+  public static class DelInptObj extends Events implements Serializable{
+    public String name="NO NAME";
+    public DelInptObj(String name){this.name=name;}
+
+    public void disappear(){LevelBhvr.curLev.getInputObj(name).disappear();}
+
     public boolean triggerEvent() throws InterruptedException, IOException, ClassNotFoundException {
-      LevelBhvr.curLev.flipE(pos,true);
+      LevelBhvr.curLev.getInputObj(name).disappear();
+      return false;
+    }
+    //TODO Suggestions: Maybe make a dispear method within InputObjs so paramtere doesn't need a
+  }
+
+  public static class GiveQuest extends Events implements Serializable{
+    Quest quest;
+    public GiveQuest(Quest quest){this.quest= quest;}
+
+    public boolean triggerEvent() throws InterruptedException, IOException, ClassNotFoundException {
+      Journal.addQuest(quest);quest=null; //makes sure can't give duplicate quests
       return false;
     }
   }
 
+  /*This Obj, Ripped to FullCordMvt But dones't have collition and can't be interacted with
+      This is in events because its only serves as visual event   */
+  public static class SymScramble extends Events implements Serializable {
+    //region Object Creation Variables
+    public char[] sym; public ArrayList<byte[]> pos = new ArrayList<>(); public int[] speed;
+    public ArrayList<ArrayList<byte[]>> mvtCmds = new ArrayList<>(); //Necessary Creation Vars
+    public byte[] stage; //Level Movement Aid
+
+    //endregion
+    //region Properties
+
+    public SymScramble(LevelBhvr.Level lev, char[] sym, ArrayList<byte[]> pos, int[] speed, ArrayList<ArrayList<byte[]>> mvtCmds) {
+      this.stage = new byte[sym.length];
+
+      for(byte i=0; i<pos.size(); i++){
+        this.pos.add(new byte[]{pos.get(i)[0],pos.get(i)[1]});
+      }
+
+      this.sym = new char[sym.length];
+      for(byte i=0;i<sym.length;i++){
+        this.sym[i]=sym[i];
+        stage[i]=0;
+      }
+      System.out.println("STAGE = "+ Arrays.toString(stage));
+
+      this.speed = new int[speed.length];
+      for(byte i=0;i<speed.length;i++){
+        this.speed[i]=speed[i];
+      }
+
+      for(byte i=0; i<mvtCmds.size();i++){
+        this.mvtCmds.addAll(Collections.singleton(mvtCmds.get(i)));
+        //this.mvtCmds.set(i,mvtCmds.get(i));
+        lev.setE(pos.get(i),sym[i],true);
+      }
+    }
+
+    //region Movement Helper Methods
+    public void progressStage(int num){
+      if(stage[num]+1== mvtCmds.get(num).size()){
+        stage[num]=-1;
+      }
+      else{stage[num]++;}
+    }
+    public byte[] getDes(int num){
+      byte y=pos.get(num)[0], x=pos.get(num)[1];
+      /*
+      System.out.println("MVMT CMNDS= "+ Arrays.toString(mvtCommands.get(stage[num]))+"    cur Pos->"
+          + Arrays.toString(pos)+"    Stage: "+stage[num]);
+
+       */
+      if(mvtCmds.get(num).get(stage[num])[1]!=pos.get(num)[1] && mvtCmds.get(num).get(stage[num])[0]!=pos.get(num)[0]){
+        System.out.println("in get Des attempted to move diagonally ");return pos.get(num);}
+      if(mvtCmds.get(num).get(stage[num])[1]==pos.get(num)[1] && mvtCmds.get(num).get(stage[num])[0]==pos.get(num)[0]){
+        progressStage(num); LevelBhvr.curLev.flipE(new byte[]{y,x},true); return pos.get(num);}
+
+      if(mvtCmds.get(num).get(stage[num])[1]==pos.get(num)[1]){ //if on same x-axis
+        if(mvtCmds.get(num).get(stage[num])[0]<pos.get(num)[0]){y--;} //des is above player
+        else{y++;}
+      }
+      if(mvtCmds.get(num).get(stage[num])[0]==pos.get(num)[0]){ //if on same x-axis
+        if(mvtCmds.get(num).get(stage[num])[1]<pos.get(num)[1]){x--;} //des is above player
+        else{x++;}
+      }
+      return new byte[]{y,x};
+    }
+    public void move(byte[] des,int num){
+      if(stage[num]==-1){return;}
+      LevelBhvr.curLev.flipE(pos.get(num),true);
+      LevelBhvr.curLev.setE(des,sym[num],true);
+      pos.get(num)[0]=des[0]; pos.get(num)[1]=des[1];
+    }
+    //endregion
+    public boolean triggerEvent() throws InterruptedException, IOException, ClassNotFoundException {
+      boolean stillGoing=true;
+      while(stillGoing){
+        stillGoing=false;
+        System.out.println("STAGE = "+ Arrays.toString(stage));
+        System.out.println("Sym = "+ Arrays.toString(sym));
+        for(byte i=0; i<sym.length;i++){
+          if(stage[i]!=-1){ stillGoing=true;
+            byte[] des = getDes(i);
+            move(des,i);
+            LevMangr.executeDisplayOfGrid();
+            Thread.sleep(speed[i]);
+          }
+        }
+      }
+      return false;
+    }
+  }
+
+  public static class MovingFgElement{
+
+  }
+
+  //region Bag Related Events
   public static class GetTool extends Events implements Serializable{
     public String text="";
     public Tools tool;
@@ -207,9 +344,11 @@ public class Events implements Serializable {
       return false;
     }
   }
+  //endregion
 
   //!!!!NOTE: false is returned to tell program it has no events need to execute
-  public boolean triggerEvent() throws InterruptedException, IOException, ClassNotFoundException {return false;}
+  public boolean triggerEvent() throws InterruptedException, IOException, ClassNotFoundException {
+    System.out.println("RAN SUPER CLASS TRIGGER EVENT"); return false;}
   public static Events relatedEvent=null;
   public static String gameStateHolder="N/A";
   public static void initiateEventState(Events event){

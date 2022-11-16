@@ -124,6 +124,7 @@ public class LevelBhvr {
     //endregion
 
     //region Methods for Manipulating & Locating Elements in Arrays
+    //region Foreground and Background Array Elements
     public byte[] posE  (char e){ byte y,x;
       for(y=1;y<yB;y++){
         for(x=0; x<xB;x++){
@@ -142,6 +143,28 @@ public class LevelBhvr {
       if(flipFG){levFG[yx[0]][yx[1]]=levBG[yx[0]][yx[1]];}
       else      {levBG[yx[0]][yx[1]]=levFG[yx[0]][yx[1]];}
     }
+    //endregion
+
+    public InputObjs getInputObj(String name){
+      for(byte i=0; i<inputObjs.size(); i++){
+        System.out.println("NAME INPUT OBJ matching -> "+name+" to "+ inputObjs.get(i).getName());
+        if(inputObjs.get(i).getName().equals(name)){
+          System.out.println("MATCH FOUND");
+          return inputObjs.get(i);
+
+        }
+      }
+      System.out.println("MATCH NOTTTT FOUND");
+      return null;
+    }
+    public void removeInputObj(String name){//can delete multiple obj with same name
+      for(byte i=0; i<inputObjs.size(); i++){
+        if(inputObjs.get(i).getName().equals(name)){
+          inputObjs.remove(i); i--;
+        }
+      }
+    }
+
     //endregion
 
 

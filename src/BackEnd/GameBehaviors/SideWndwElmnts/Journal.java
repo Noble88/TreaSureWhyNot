@@ -10,11 +10,15 @@ import FrontEnd.Managers.TBoxMangr;
 
 import java.util.ArrayList;
 
+import static BackEnd.GameLoop.gameState;
+
 public class Journal {
   public static MenuCus menu = new MenuCus(1,15,1,false,false,true);
 
   //region Create Quest and Quest Managment
   public static ArrayList<Quest> quests = new ArrayList<>();
+
+  public static void addQuest(Quest quest){quests.add(quest);}
 
   public static void displayQuests(){
     //TODO Qauility of life: could make it so 2 lines desplays 1 quest for more creative naming
@@ -37,7 +41,7 @@ public class Journal {
       quests.get(i).checkCompletion();
       if(quests.get(i).done){quests.remove(i); i--;}
     }
-    if(SideWndwBhvr.curTab.equals("JOURNAL")){displayQuests(); updateSubText();}
+    if(SideWndwBhvr.curTab.equals("JOURNAL") && gameState.equals("SIDE WINDOW")){displayQuests(); updateSubText();}
   }
 
   public static Quest getHighlightedQuest(){

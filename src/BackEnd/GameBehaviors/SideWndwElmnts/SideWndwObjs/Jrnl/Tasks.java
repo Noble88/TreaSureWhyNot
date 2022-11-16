@@ -8,14 +8,16 @@ import BackEnd.GameLoop;
 import BackEnd.PlayerData;
 import FrontEnd.Managers.TBoxMangr;
 
-public class Tasks {
+import java.io.Serializable;
+
+public class Tasks implements Serializable {
 
   //NOTE: nameing of tasks goes a follows -> (condition to meet) + (reward upon complete)
   //TODO MAKE: NPC/world need to know what type of tasks they should check for (either by name or ID)
 
   //TODO MAKE: need to make ways to check certain catagories of tasks ex: need to check "toolGet" type tasks when getting tools
   //region TEST
-  public static class IntrSymGetTestTask extends Tasks {
+  public static class IntrSymGetTestTask extends Tasks implements Serializable{
     char npc; String questText;
 
     public IntrSymGetTestTask(char sym, String questText){
@@ -32,7 +34,7 @@ public class Tasks {
   }
   //endregion
   //region Interaction Based Tasks
-  public static class IntrSymGetText extends Tasks {
+  public static class IntrSymGetText extends Tasks implements Serializable{
     char sym; String questText, finishText;
 
     public IntrSymGetText(char sym, String questText, String finishText){

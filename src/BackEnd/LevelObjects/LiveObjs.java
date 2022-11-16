@@ -7,11 +7,13 @@ import BackEnd.PlayerData;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class LiveObjs implements Serializable{
 
-  public static class CordListMvt extends LiveObjs implements Serializable {
+  //TODO BUG & EFFICENCY: MAKE IT SO instead of having remvoe self command make it can have a version
+  // that can take event that triggers when collition and could delete self
+  //This Obj Means its fully interactable & has collition
+  public static class FullCordMvt extends LiveObjs implements Serializable {
     //region Object Creation Variables
     public byte[] pos; public byte speed;
     public ArrayList<byte[]> mvtCommands = new ArrayList<>(); public char sym; //Necessary Creation Vars
@@ -21,7 +23,7 @@ public class LiveObjs implements Serializable{
     public boolean walkablesOnly=true; public String objWalkables ="";//walkable properties
     public Events event=null;
 
-    public CordListMvt(char sym, byte[] pos, byte speed, ArrayList<byte[]> mvtCmds) {
+    public FullCordMvt(char sym, byte[] pos, byte speed, ArrayList<byte[]> mvtCmds) {
       this.pos = new byte[]{pos[0],pos[1]};    this.sym = sym;    this.speed=speed;
       LevelBhvr.curLev.liveObjSyms+=sym;
       this.mvtCommands.addAll(mvtCmds);
@@ -107,6 +109,7 @@ public class LiveObjs implements Serializable{
     }
 
   }
+
   //region Object Helper Methods
   public static LiveObjs findLiveObjWithDes(byte[] pos){
     for(int i=0; i<LevelBhvr.curLev.liveObjs.size(); i++){

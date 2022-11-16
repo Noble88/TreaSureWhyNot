@@ -4,9 +4,10 @@ import BackEnd.GameBehaviors.SideWndwBhvr;
 import BackEnd.GameBehaviors.SideWndwElmnts.Journal;
 import FrontEnd.Managers.ScreenCover.ScreenCoverMangr;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Quest {
+public class Quest implements Serializable {
   public String name="";
   public byte taskNum=0;
   public boolean done=false;

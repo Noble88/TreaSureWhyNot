@@ -24,13 +24,11 @@ public class TBoxBhvr {
         space=grab.lastIndexOf(" ");
         list.add(text.substring(0,space));
         text=text.substring(space+1);
-        System.out.println(list.toString());
       }
     }
     list.add(text);
       for(byte i=0; i<list.size(); i++){
         TBoxMangr.updateTextCell(list.get(i),(i)%3,speed);
-        System.out.println("EQUATION"+(i)%3);
         if((i)%3==2){Thread.sleep(1500);clearTextBox(false);}
         else{Thread.sleep(200);}
       }

@@ -138,7 +138,9 @@ public class LoadLevels {
       add(new Tasks.IntrSymGetText('⎌',"Whats that rock glowing for?","BAH! just some glass..."));
       add(new Tasks.IntrSymGetText(',',"Touch grass because ur sad","The grass feels nice"));
     }}));
-    InputObjs specialRock = new InputObjs.visibleObj(shinyGreen, new byte[]{15,15},'⎌',new Events.IntrDel(new byte[]{15,15}));
+    InputObjs specialRock = null; //Have to do this because pitting "specialRock" inside of parameters
+    specialRock = new InputObjs.visibleObj("rock",shinyGreen, new byte[]{15,15},'⎌',
+        new Events.DelInptObj("rock"));
     shinyGreen.inputObjs.add(specialRock);
       //endregion
 
@@ -200,6 +202,101 @@ public class LoadLevels {
       add("PLAYER GRASS RUFFLE"); add("BUSH GRASS TUF"); add("DIRT GRASS BLEND");add("DIRT TREE BLEND");
     }});
     //endregion
+    //region Add Gameplay Objects
+      //region Conquering the Snake Quest
+    /*
+    HOW I'M GONA DO IT
+    -Upon interacting with any of the 3 and spooking them the kids make a scene
+    --Make each kid a input obj of select box that when select spook option
+      activates text
+    ---Kid 1 = s (7,11)  | Kid 2 t (10/11)  |  Kid 3 T (7,14)
+
+    -This scene will make it so the kids will run away into the tree house
+    --Make
+    ---Potential Problem -> kid might overwrite player
+
+
+    */
+
+    InputObjs snoke = new InputObjs.visibleObj("snoke",shrubbedShrubbery, new byte[]{7,11},'s',new Events.SelectBox(
+        new ArrayList<Events>(){{
+          add(new Events.EventChain(new ArrayList<Events>(){{
+            add(new Events.DelInptObj("snoke"));
+            add(new Events.SymScramble(shrubbedShrubbery,
+                new char[]{'s','t','T'},
+                new ArrayList<byte[]>(){{add(new byte[]{7,11}); add(new byte[]{10,11}); add(new byte[]{7,14});}},
+                new int[]{100,50,75},
+                new ArrayList<ArrayList<byte[]>>(){{
+                  add(new ArrayList<byte[]>(){{
+                    add(new byte[]{7,16});add(new byte[]{5,16});}});
+                  add(new ArrayList<byte[]>(){{
+                    add(new byte[]{10,16});add(new byte[]{5,16});}});
+                  add(new ArrayList<byte[]>(){{
+                    add(new byte[]{7,16});add(new byte[]{5,16});}});
+                }}));
+            add(new Events.GiveQuest(new Quest("Odd Kids", new ArrayList<Tasks>(){{
+              add(new Tasks.IntrSymGetText('ʇ',"The kids seem to behiding something","They yell at you"));}})));
+          }}));
+          add(new Events.BscText("I'll let them be..."));}},
+        new ArrayList<String>(){{
+          add("Observe");
+          add("Walk Away");}}));
+
+    InputObjs tomb = new InputObjs.visibleObj("tomb",shrubbedShrubbery, new byte[]{10,11},'t',new Events.SelectBox(
+        new ArrayList<Events>(){{
+          add(new Events.EventChain(new ArrayList<Events>(){{
+            add(new Events.BscText("AHHHHHHHHHHH!!!!!!!"));
+            add(new Events.DelInptObj("tomb"));
+            add(new Events.SymScramble(shrubbedShrubbery,
+                new char[]{'s','t','T'},
+                new ArrayList<byte[]>(){{add(new byte[]{7,11}); add(new byte[]{10,11}); add(new byte[]{7,14});}},
+                new int[]{100,50,75},
+                new ArrayList<ArrayList<byte[]>>(){{
+                  add(new ArrayList<byte[]>(){{
+                    add(new byte[]{7,16});add(new byte[]{5,16});}});
+                  add(new ArrayList<byte[]>(){{
+                    add(new byte[]{10,16});add(new byte[]{5,16});}});
+                  add(new ArrayList<byte[]>(){{
+                    add(new byte[]{7,16});add(new byte[]{5,16});}});
+                }}));
+            add(new Events.GiveQuest(new Quest("Odd Kids", new ArrayList<Tasks>(){{
+              add(new Tasks.IntrSymGetText('ʇ',"The kids seem to behiding something","They yell at you"));}})));
+          }}));
+          add(new Events.BscText("I'll let them be..."));}},
+        new ArrayList<String>(){{
+          add("Observe");
+          add("Walk Away");}}));
+
+    InputObjs telli = new InputObjs.visibleObj("telli",shrubbedShrubbery, new byte[]{7,14},'T',new Events.SelectBox(
+        new ArrayList<Events>(){{
+          add(new Events.EventChain(new ArrayList<Events>(){{
+            add(new Events.DelInptObj("telli"));
+            add(new Events.SymScramble(shrubbedShrubbery,
+                new char[]{'s','t','T'},
+                new ArrayList<byte[]>(){{add(new byte[]{7,11}); add(new byte[]{10,11}); add(new byte[]{7,14});}},
+                new int[]{100,50,75},
+                new ArrayList<ArrayList<byte[]>>(){{
+                  add(new ArrayList<byte[]>(){{
+                    add(new byte[]{7,16});add(new byte[]{5,16});}});
+                  add(new ArrayList<byte[]>(){{
+                    add(new byte[]{10,16});add(new byte[]{5,16});}});
+                  add(new ArrayList<byte[]>(){{
+                    add(new byte[]{7,16});add(new byte[]{5,16});}});
+                }}));
+            add(new Events.GiveQuest(new Quest("Odd Kids", new ArrayList<Tasks>(){{
+              add(new Tasks.IntrSymGetText('ʇ',"The kids seem to behiding something","They yell at you"));}})));
+          }}));
+          add(new Events.BscText("I'll let them be..."));}},
+        new ArrayList<String>(){{
+          add("Observe");
+          add("Walk Away");}}));
+    shrubbedShrubbery.inputObjs.add(snoke);
+    shrubbedShrubbery.inputObjs.add(tomb);
+    shrubbedShrubbery.inputObjs.add(telli);
+
+    //endregion
+    //endregion
+
     //endregion
     //region (1,1) "Plainned Out Grass"
     //region Make Level Object
