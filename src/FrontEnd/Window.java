@@ -17,6 +17,9 @@ import FrontEnd.Colors.SideWindowBg;
 import FrontEnd.Managers.SideWndwMangr;
 import FrontEnd.Managers.TBoxMangr;
 
+import static FrontEnd.Colors.LevColors.windowTint;
+
+
 //NOTE: make a dominant layer that goes over all other window elemenets (useful for making main menu & settings)
 public class Window {
   public static int windowSizeMultiplier = 1;
@@ -28,7 +31,7 @@ public class Window {
   //region ---Window declaration and Initialization---
 
   public static JFrame window = new JFrame();
-  static JLayeredPane elementHolder = new JLayeredPane(); //Element Holder -> holds everything assigned window size will be the largest
+  public static JLayeredPane elementHolder = new JLayeredPane(); //Element Holder -> holds everything assigned window size will be the largest
 
   public static int[] windowSize = new int[]{900,700}; //width, height
   //static byte gameSizeMultiplyer
@@ -73,11 +76,14 @@ public class Window {
   static int[] scBnds = new int[]{0,0, windowSize[0], windowSize[1]};
   //endregion
 
+  //region tesst
+
+  //endregion
+
   public static int getWinSizeX(int row){ return ((windowSize[0])/xBsc)*row;}
   public static int getWinSizeY(int col){ return ((windowSize[1])/yBsc)*col;}
 
   //endregion
-
   public static void createWindow(){
     //region ---JFrame---
     //frame.setLayout(new GridBagLayout());
@@ -96,12 +102,20 @@ public class Window {
     screenCover.setFocusable(false);
     screenCover.setVisible(false);
     //endregion
-
     //region ---Element Holder Layered Pane---
     window.add(elementHolder);
     elementHolder.setBounds(0,0, windowSize[0], windowSize[1]);
     elementHolder.setOpaque(false);
     elementHolder.setVisible(true);
+    //endregion
+
+    //region Window Tint
+    elementHolder.add(windowTint);
+    windowTint.setBounds(0,0,windowSize[0],windowSize[1]);
+    windowTint.setOpaque(false);
+    windowTint.setFocusable(false);
+    windowTint.setVisible(true);
+
     //endregion
 
     //region ---Playable Area---
