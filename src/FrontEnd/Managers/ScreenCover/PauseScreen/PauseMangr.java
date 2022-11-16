@@ -11,7 +11,7 @@ public class PauseMangr {
     ScreenCoverMangr.displayLine(i,"----------Game Paused-----------");
     i++;
     i++; ScreenCoverMangr.displayLine(i,"-----Settings------");
-    i++; ScreenCoverMangr.displayLine(i,"  1) Video         |(ND)");
+    i++; ScreenCoverMangr.displayLine(i,"  1) Video         |");
     i++; ScreenCoverMangr.displayLine(i,"  2) Audio         |(ND)");
     i++; ScreenCoverMangr.displayLine(i,"  3) Key Bindings  |");
     i++; ScreenCoverMangr.displayLine(i,"------Other---------");

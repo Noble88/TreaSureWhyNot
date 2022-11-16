@@ -26,7 +26,6 @@ public class HelpManagr {
         i++; ScreenCoverMangr.displayLine(i,"-Shift switch between the");
         i++; ScreenCoverMangr.displayLine(i," side window");
         i++; ScreenCoverMangr.displayLine(i,"-ESC to back out of menus");
-
     }
     public static void showPage2() throws IOException {
         ScreenCoverMangr.clearGrid();

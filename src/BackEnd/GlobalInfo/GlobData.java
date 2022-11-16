@@ -56,6 +56,11 @@ public class GlobData {
     txrColors.put("deadTree00",new Color(171, 129, 2));
     txrColors.put("deadTree01",new Color(191, 144, 0));
       //endregion
+    tilesName.put("cattail",'ľ'); tilesChar.put('ľ',"cattail");
+      //region DeadTree Colors
+    txrColors.put("cattail00",new Color(54, 120, 65));
+    txrColors.put("cattail01",new Color(191, 144, 0));
+      //endregion
       //endregion
       //region ---Rocky Stuff---
     tilesName.put("dirtVert",'░'); tilesChar.put('░',"dirtVert");

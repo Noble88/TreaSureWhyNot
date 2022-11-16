@@ -67,36 +67,39 @@ public class LevBg {
       for(byte i=0; i<autoDrawList.size(); i++){
         switch(autoDrawList.get(i)){
           case "BUSH GRASS TUF"->{
-            if(sym == tilesName.get("grass")){
+            if(sym == tilesName.get("bush")){
               g2d.setColor(txrColors.get("bush02"));
-              if(adjacentSymCompare(-1,0, tilesName.get("bush"),false)) {//above
-                g2d.fillRect(0,0,width,2);
+              //DIRECTION IS IN ON GRASS PERSPECTIVE
+              if(adjacentSymCompare(-1,0, tilesName.get("grass"),false)) {//above
+                g2d.fillRect(0,0,width, (int) (height*.05));
               }
-              if(adjacentSymCompare(1,0, tilesName.get("bush"),false)) {//below
-                g2d.fillRect(0,height-2,width,2);
+
+              if(adjacentSymCompare(1,0, tilesName.get("grass"),false)) {//below
+                g2d.fillRect(0, (int) (height*.95),width,(int) (height*.10));
               }
-              if(adjacentSymCompare(0,1, tilesName.get("bush"),false)) {//right
-                g2d.fillRect(width-2,0,2,height);
+              if(adjacentSymCompare(0,1, tilesName.get("grass"),false)) {//right
+                g2d.fillRect((int)(width*.95),0,(int) (width*.10),height);
               }
-              if (adjacentSymCompare(0,-1, tilesName.get("bush"),false)){//left
-                g2d.fillRect(0,0,2,height);
+              if (adjacentSymCompare(0,-1, tilesName.get("grass"),false)){//left
+                g2d.fillRect(0,0,(int) (width*.10),height);
               }
+
             }
           }
           case "DIRT GRASS BLEND"->{
             if(sym == tilesName.get("dirtVert") || sym == tilesName.get("dirtHorz")){
               g2d.setColor(txrColors.get("dirt50"));
               if(adjacentSymCompare(-1,0, tilesName.get("grass"),false)) {//above
-                g2d.fillRect(0,0,width,2);
+                g2d.fillRect(0,0,width, (int) (height*.10));
               }
               if(adjacentSymCompare(1,0, tilesName.get("grass"),false)) {//below
-                g2d.fillRect(0,height-2,width,2);
+                g2d.fillRect(0, (int)(height-(height*.10)),width,(int) (height*.10));
               }
               if(adjacentSymCompare(0,1, tilesName.get("grass"),false)) {//right
-                g2d.fillRect(width-2,0,2,height);
+                g2d.fillRect((int)(width-(width*.10)),0,(int) (width*.10),height);
               }
               if (adjacentSymCompare(0,-1, tilesName.get("grass"),false)){//left
-                g2d.fillRect(0,0,2,height);
+                g2d.fillRect(0,0,(int) (width*.10),height);
               }
             }
           }
@@ -104,16 +107,16 @@ public class LevBg {
             if(sym == tilesName.get("dirtVert") || sym == tilesName.get("dirtHorz")){
               g2d.setColor(txrColors.get("dirt51"));
               if(adjacentSymCompare(-1,0, tilesName.get("tree"),false)) {//above
-                g2d.fillRect(0,0,width,2);
+                g2d.fillRect(0,0,width, (int) (height*.10));
               }
               if(adjacentSymCompare(1,0, tilesName.get("tree"),false)) {//below
-                g2d.fillRect(0,height-2,width,2);
+                g2d.fillRect(0, (int)(height-(height*.10)),width,(int) (height*.10));
               }
               if(adjacentSymCompare(0,1, tilesName.get("tree"),false)) {//right
-                g2d.fillRect(width-2,0,2,height);
+                g2d.fillRect((int)(width-(width*.10)),0,(int) (width*.10),height);
               }
               if (adjacentSymCompare(0,-1, tilesName.get("tree"),false)){//left
-                g2d.fillRect(0,0,2,height);
+                g2d.fillRect(0,0,(int) (width*.10),height);
               }
             }
           }
