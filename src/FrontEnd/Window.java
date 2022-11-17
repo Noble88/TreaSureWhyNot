@@ -76,9 +76,6 @@ public class Window {
   static int[] scBnds = new int[]{0,0, windowSize[0], windowSize[1]};
   //endregion
 
-  //region tesst
-
-  //endregion
 
   public static int getWinSizeX(int row){ return ((windowSize[0])/xBsc)*row;}
   public static int getWinSizeY(int col){ return ((windowSize[1])/yBsc)*col;}
@@ -115,7 +112,6 @@ public class Window {
     windowTint.setOpaque(false);
     windowTint.setFocusable(false);
     windowTint.setVisible(true);
-
     //endregion
 
     //region ---Playable Area---

@@ -1,6 +1,8 @@
 package FrontEnd.Colors;
 
 
+import BackEnd.GameBehaviors.LevelBhvr;
+import BackEnd.GlobalInfo.GlobData;
 import FrontEnd.Window;
 
 import javax.swing.*;
@@ -30,28 +32,50 @@ public class LevColors {
 
   }
 
-  public static Color overWorldTint;
-  public static void progressTime(){
-    time++;
-    if(time==25){time=1;}
-    System.out.println(time+"AND OUTPUT"+ (50+ (int) ((((double)(time+1)%4*15))*.8)));
-    if(time<4){overWorldTint=weatherColor.get("spooky");}
-    else if(time<8){overWorldTint=weatherColor.get("day");}
-    else if(time<12){overWorldTint=weatherColor.get("afternoon");}
-    else if(time<16){overWorldTint=weatherColor.get("evening");}
-    else if(time<20){overWorldTint=weatherColor.get("night");}
-    else if(time<=24){overWorldTint=weatherColor.get("dark");}
-    else{overWorldTint=weatherColor.get("dark");}
 
-    overWorldTint = new Color(overWorldTint.getRed(), overWorldTint.getGreen(), overWorldTint.getBlue(), 20+ (int) ((((double)(time+1)/4*15))*.8) );
-    repaintAll();
-    /*
-     */
+
+  public static void repaintWorldTint(){
+    System.out.println("WENT IN REPAINT WORLD TITN AND CHECKING = "+
+        (LevelBhvr.curLev.levelBg!=null));
+    if(LevelBhvr.curLev.levelBg!=null){
+      worldTint = LevelBhvr.curLev.levelBg;windowTint.repaint(); return;}
+    int r=0,g=0,b=0,a=0; //adjusters
+    switch(GlobData.weather){
+      case"clear"->{
+        if(time<5){worldTint =weatherColor.get("night");}
+        else if(time==5){worldTint =weatherColor.get("golden hour 1");a=-20;}
+        else if(time==6){worldTint =weatherColor.get("golden hour 2");a=-10;}
+        else if(time<12){worldTint =weatherColor.get("day clear");a=-20;}
+        else if(time<14){worldTint =weatherColor.get("afternoon clear");a=-20;}
+        else if(time<16){worldTint =weatherColor.get("evening");}
+        else if(time<20){worldTint =weatherColor.get("night");}
+        else if(time<=24){worldTint =weatherColor.get("dark");}
+        else{worldTint =weatherColor.get("spooky");}
+      }
+      case"rainy"->{
+        if(time<5){worldTint =weatherColor.get("night");}
+        else if(time<6){worldTint =weatherColor.get("evening");a=10;}
+        else if(time<10){worldTint =weatherColor.get("day rainy");}
+        else if(time<14){worldTint =weatherColor.get("afternoon rainy");a=10;}
+        else if(time<16){worldTint =weatherColor.get("evening");r=-20;g=-20;a=20;}//4
+        else if(time<20){worldTint =weatherColor.get("night");r=-20;g=-20;}
+        else if(time<=24){worldTint =weatherColor.get("dark");}
+        else{worldTint =weatherColor.get("spooky");}
+      }
+    }
+    worldTint = new Color(worldTint.getRed()+r, worldTint.getGreen()+g, worldTint.getBlue()+b, 50+a);
+    if(time<=12){
+      System.out.println("time: ("+(time)+")AM / 24 Time: ("+time+")  & Color: ("+
+          worldTint.getRed()+"/"+ worldTint.getGreen()+"/"+ worldTint.getBlue()+"/"+ worldTint.getAlpha()+")");
+    } else{
+      System.out.println("time: ("+(time-12)+")PM 24 Time: ("+time+") & Color: ("+
+          worldTint.getRed()+"/"+ worldTint.getGreen()+"/"+ worldTint.getBlue()+"/"+ worldTint.getAlpha()+")");
+    }
   }
 
   public static JPanel windowTint = new JPanel(){
     public void paintComponent(Graphics g) {
-      g.setColor(overWorldTint);
+      g.setColor(worldTint);
       g.fillRect(0,0, Window.windowSize[0],Window.windowSize[1]);
       super.paintComponent(g);
     }
@@ -82,10 +106,6 @@ public class LevColors {
 
 
   };
-
-  public static void repaintAll(){
-    windowTint.repaint();
-  }
   //endregion
 
   //endregion

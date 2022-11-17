@@ -12,16 +12,19 @@ public class GlobData {
   public static HashMap<String, Character> tilesName = new HashMap<>();
   public static HashMap<Character, String> tilesChar = new HashMap<>();
   public static HashMap<String, Color> txrColors = new HashMap<>();
+  //MAKE HASHMAP FOR AUDIO TILES HERE
   //endregion
   //region File Directories Initialization & Declaration
   public static HashMap<String, String> fileFinder = new HashMap<>();
   //endregion
   //region Weather and Time Color Initialization & Declaration
   public static HashMap<String, Color> weatherColor = new HashMap<>();
+  public static byte time=7;
+  public static String weather="clear";
+  public static Color worldTint;
   //endregion
-  public static byte time=22;
   public static void warmUpGlobData(){
-    //region Tiles and Tile Colors
+    //region Tiles Sym, Colors, Sound
     // NOTE: 00 = foreground / 01 = background / 02-49 = Layers / 50-99 Blends (the seem between 2 tiles)
     //region ->basic tiles<-
       //region ---Borders & Intangibles---
@@ -41,6 +44,9 @@ public class GlobData {
       //region Grass Colors
     txrColors.put("grass00",new Color(7, 165, 7  ));
     txrColors.put("grass01",new Color(49, 94, 32 ));
+      //endregion
+      //region Grass Sound
+      //TODO make grass sound for test ground audio
       //endregion
     tilesName.put("tree",'⚲'); tilesChar.put('⚲',"tree");
       //region Tree Colors
@@ -190,13 +196,19 @@ public class GlobData {
     fileFinder.put("KeyBinds",curFilePath+"/src/BackEnd/FileManagement/SavedData/Settings/Key Bindings.txt");
     //endregion
     //region Weather and Time Colors
-    weatherColor.put("day",new Color(161, 155, 116, 63));
-    weatherColor.put("afternoon",new Color(192, 185, 132, 63));
-    weatherColor.put("evening",new Color(88, 98, 103, 63));
+    weatherColor.put("golden hour 1",new Color(193, 179, 77));
+    weatherColor.put("golden hour 2",new Color(148, 145, 97));
+
+    weatherColor.put("day clear",new Color(183, 189, 135));
+    weatherColor.put("day rainy",new Color(70, 127, 183));
+
+    weatherColor.put("afternoon clear",new Color(124, 163, 164));
+    weatherColor.put("afternoon rainy",new Color(31, 101, 171));
+
+    weatherColor.put("evening",new Color(84, 113, 126));
     weatherColor.put("night",new Color(33, 46, 112));
     weatherColor.put("dark",new Color(1, 14, 80));
     weatherColor.put("spooky",new Color(0, 4, 31));
-
     //endregion
   }
   public static boolean hitLevBrdr=false;

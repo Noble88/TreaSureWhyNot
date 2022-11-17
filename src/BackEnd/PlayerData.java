@@ -5,6 +5,7 @@ import BackEnd.GameBehaviors.LevelBhvr;
 import BackEnd.GlobalInfo.GlobData;
 import BackEnd.GlobalInfo.GlobMeths;
 import BackEnd.LevelObjects.LiveObjs;
+import FrontEnd.Colors.LevColors;
 import FrontEnd.Debugger;
 
 import java.io.*;
@@ -39,8 +40,8 @@ public class PlayerData {
     if(checkIfPlayerWillWalkOnValidGround(des));
 
     //level switching collision
-    if(checkIfPlayerHitACollidableBorder(des));
-    if(checkIfPlayerHitLevelSwitch(des));
+    if(checkIfPlayerHitACollidableBorder(des) || checkIfPlayerHitLevelSwitch(des)){//
+      LevColors.repaintWorldTint();}
 
     //Find symbol facing
     byte[] temp = GlobMeths.findCords(pos,facing);
@@ -56,6 +57,7 @@ public class PlayerData {
     if((curLev.liveObjSyms.contains(Character.toString(curLev.getE(des,true))))&&
         (LiveObjs.findLiveObjWithDes(des)!=null)){
       LiveObjs.findLiveObjWithDes(des).playerCollide();
+      //TODO MAKE: maybe live object can play sound (make new method or type of live object that produce sound on hit)
     }
   }
   public static boolean checkIfPlayerWillWalkOnValidGround(byte[] des){
@@ -63,6 +65,7 @@ public class PlayerData {
       curLev.flipE(pos,true);//deletePlayer
       curLev.setE(new byte[]{des[0],des[1]},'@',true); //add player
       pos = new byte[]{des[0],des[1]}; //update player location
+      //TODO MAKE: can have identify what the current tile player on and make a sound
       return true;
     }
     return false;

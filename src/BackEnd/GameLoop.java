@@ -6,6 +6,7 @@ import BackEnd.GameBehaviors.ScreenCover.PauseScreen.PauseBhvr;
 import BackEnd.GameBehaviors.ScreenCover.PauseScreen.Settings.KeyBinds;
 import BackEnd.GameBehaviors.SideWndwBhvr;
 import BackEnd.GameBehaviors.SideWndwElmnts.Journal;
+import BackEnd.GlobalInfo.GlobMeths;
 import BackEnd.LevelObjects.Events;
 import FrontEnd.Colors.LevColors;
 import FrontEnd.Window;
@@ -24,12 +25,14 @@ public class GameLoop {
   public static String gameState = "LEVEL";
   public static boolean newKeyPressed = false;
   public static String key = "N/A", associatedKey="N/A";
-  public static byte tick=0;
+  public static byte tick=0, tickLoop;
 
   public static void gameLoop() throws IOException, ClassNotFoundException, InterruptedException {
     if(runWorld){
       if(tick==40){tick=0;
-        LevColors.progressTime();}
+        if(tickLoop==10){tickLoop=0;
+          GlobMeths.progressTime();
+      }} //In game time
       tick++;
       LevelBhvr.curLev.runLiveObjects();
     }

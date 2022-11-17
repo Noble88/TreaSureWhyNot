@@ -3,10 +3,14 @@ package BackEnd.GlobalInfo;
 import BackEnd.FileManagement.Loaders.LoadPlayerData;
 import BackEnd.GameBehaviors.LevelBhvr;
 import BackEnd.PlayerData;
+import FrontEnd.Colors.LevColors;
 
 import java.io.IOException;
 
 import static BackEnd.GameBehaviors.LevelBhvr.*;
+import static BackEnd.GlobalInfo.GlobData.time;
+import static BackEnd.GlobalInfo.GlobData.worldTint;
+import static FrontEnd.Colors.LevColors.windowTint;
 
 public class GlobMeths {
   public static void updateWalkables(){
@@ -45,5 +49,27 @@ public class GlobMeths {
   }
 
   //endregion
+
+  public static void progressTime(){
+    time++;
+    if(time==25){time=1;}
+
+    if(LevelBhvr.curLev.levelBg!=null && worldTint!=LevelBhvr.curLev.levelBg){
+      System.out.println("!!!!!!!!!!!!!!!!!!!!!!!DIDNT WENT TO NULL LEVEL");
+      worldTint =LevelBhvr.curLev.levelBg;windowTint.repaint();
+      System.out.println("DID WENT TO NULL LEVEL!!!!!!!!!!!!!!!!");
+
+      return;}
+    else{LevColors.repaintWorldTint();}
+
+    if(time<=12){
+      System.out.println("time: ("+(time)+")AM / 24 Time: ("+time+")  & Color: ("+
+          worldTint.getRed()+"/"+ worldTint.getGreen()+"/"+ worldTint.getBlue()+"/"+ worldTint.getAlpha()+")");
+    } else{
+      System.out.println("time: ("+(time-12)+")PM 24 Time: ("+time+") & Color: ("+
+          worldTint.getRed()+"/"+ worldTint.getGreen()+"/"+ worldTint.getBlue()+"/"+ worldTint.getAlpha()+")");
+    }
+    windowTint.repaint();
+  }
 
 }

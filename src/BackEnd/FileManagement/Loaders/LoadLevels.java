@@ -8,6 +8,7 @@ import BackEnd.LevelObjects.InputObjs;
 import FrontEnd.Runner;
 
 
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -163,6 +164,7 @@ public class LoadLevels {
       //region add other behaviors
     home.assignUniqueBhvr(""+
         tilesName.get("empty")+ tilesName.get("lowHorzBrder"),false);
+    home.addBackgroundColor(new Color(51, 30, 2, 74));
       //endregion
       //region Add Level Switch
     home.assignLevelSwitch(levChngChild1,parentSpawn1,pos1); //EXIT to shinyGreen
@@ -171,7 +173,6 @@ public class LoadLevels {
       //endregion
       //region subLevel Adding
     shinyGreen.assignLevelSwitch(levChngParent1,childSpawn1,pos2);//Enter Home
-      //endregion
       //endregion
     //region (0,1) "Nestled Nuz"
       //region Make Level Object

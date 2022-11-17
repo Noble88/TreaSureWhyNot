@@ -6,9 +6,11 @@ import BackEnd.LevelObjects.LiveObjs;
 import BackEnd.PlayerData;
 import BackEnd.FileManagement.Loaders.LoadLevels;
 import FrontEnd.Colors.LevBg;
+import FrontEnd.Colors.LevColors;
 import FrontEnd.Debugger;
 import FrontEnd.Managers.LevMangr;
 
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -27,6 +29,7 @@ public class LevelBhvr {
     public String levelWalkables="";
     public boolean swapLevOnBrdrHit = true;
     public ArrayList<String> autoDrawList= new ArrayList<>();
+    public Color levelBg = null;
     //endregion
     //region ---Sub Level / Switch Components---
     //TODO ASK TEACHER: IF ARRAY LIST IS DEFINED FOR MOST OF THE TIME BUT ON FEW OCCASIONS IT WILL CHANGE WOULD IT STILL BE EFFICENT TO USE A LIST
@@ -70,6 +73,7 @@ public class LevelBhvr {
       //System.out.println("LEVEL: "+name+"   walkables:"+levelWalkables);
       swapLevOnBrdrHit =chngOnBrdCol;
     }
+    public void addBackgroundColor(Color col){levelBg=col;}
     public void assignLevelSwitch(byte[] subLevLoc, byte[] spawn, ArrayList<byte[]> path){
       this.subLevLoc.add(new byte[]{subLevLoc[0],subLevLoc[1]});
       subLevPath.add(LoadLevels.getLevelPath(path,0,0));
@@ -96,11 +100,13 @@ public class LevelBhvr {
       if(!swapLevOnBrdrHit){return;}
       saveLevel();
       goToNewLevel(contacts[directionTonNum(PlayerData.facing)]);
+      LevColors.repaintWorldTint();
     }
 
     public void levPosSwitch(byte loc) throws IOException, ClassNotFoundException {
       saveLevel();
       goToNewLevel(subLevPath.get(loc));
+      LevColors.repaintWorldTint();
     }
     //TODO BUG: WONT SAVE WHEN ENTER BUILDING
     //endregion
@@ -144,7 +150,7 @@ public class LevelBhvr {
       else      {levBG[yx[0]][yx[1]]=levFG[yx[0]][yx[1]];}
     }
     //endregion
-
+    //region Input Obj Methods
     public InputObjs getInputObj(String name){
       for(byte i=0; i<inputObjs.size(); i++){
         System.out.println("NAME INPUT OBJ matching -> "+name+" to "+ inputObjs.get(i).getName());
@@ -164,7 +170,7 @@ public class LevelBhvr {
         }
       }
     }
-
+    //endregion
     //endregion
 
 
@@ -178,6 +184,7 @@ public class LevelBhvr {
       return tempStr;
     }
 
+    //region Running objects in level
     public void runInputObjects() throws InterruptedException, IOException, ClassNotFoundException {
       for(int i = 0; i< inputObjs.size(); i++){
         inputObjs.get(i).run();}
@@ -186,6 +193,7 @@ public class LevelBhvr {
       for(int i = 0; i< liveObjs.size(); i++){
         liveObjs.get(i).run();}
     }
+    //endregion
  }
 
   //region Methods To Help Inside of Level Class Object

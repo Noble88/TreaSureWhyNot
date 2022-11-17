@@ -80,6 +80,8 @@ public class Runner {
     LevMangr.displayWholeGrid();
     LevBg.updateAutoDrawList(LevelBhvr.curLev.autoDrawList);
     GlobMeths.updateWalkables();
+    GlobMeths.progressTime();
+
     if(!deleteFilesOnStart){ //RESUMED SAVE DATA
       PlayerData.setPlyrPos(LoadPlayerData.getSavedPlayerPosition(),true);//sets player location using PlayerData File
       //region assigned side window player data
