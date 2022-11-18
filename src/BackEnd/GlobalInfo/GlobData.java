@@ -1,31 +1,43 @@
 package BackEnd.GlobalInfo;
 
+import FrontEnd.Audio.Sfx;
 import FrontEnd.Runner;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static FrontEnd.Runner.curFilePath;
 
 public class GlobData {
-  //region Tiles and Tile Color Initialization & Declaration
+  //Initialization & Declaration
+  //region Tiles and Tile Color
   public static HashMap<String, Character> tilesName = new HashMap<>();
   public static HashMap<Character, String> tilesChar = new HashMap<>();
+  public static HashMap<Character, Sfx> tilesSounds = new HashMap<>();
   public static HashMap<String, Color> txrColors = new HashMap<>();
+
+
   //MAKE HASHMAP FOR AUDIO TILES HERE
   //endregion
-  //region File Directories Initialization & Declaration
+  //region File Directories
   public static HashMap<String, String> fileFinder = new HashMap<>();
   //endregion
-  //region Weather and Time Color Initialization & Declaration
+  //region Weather and Time Color
   public static HashMap<String, Color> weatherColor = new HashMap<>();
-  public static byte time=7;
+  public static byte time=22;
   public static String weather="clear";
   public static Color worldTint;
   //endregion
+  //region Other
+  public static int volume=100;
+  //endregion
+
   public static void warmUpGlobData(){
     //region Tiles Sym, Colors, Sound
-    // NOTE: 00 = foreground / 01 = background / 02-49 = Layers / 50-99 Blends (the seem between 2 tiles)
+    // Background color notation 00 = foreground / 01 = background / 02-49 = Layers / 50-99 Blends (the seem between 2 tiles)
+    // Sound sfx notation
+
     //region ->basic tiles<-
       //region ---Borders & Intangibles---
     tilesName.put("vertBrder",'|'); tilesChar.put('|',"vertBrder");
@@ -46,7 +58,9 @@ public class GlobData {
     txrColors.put("grass01",new Color(49, 94, 32 ));
       //endregion
       //region Grass Sound
-      //TODO make grass sound for test ground audio
+    tilesSounds.put(tilesName.get("grass"), new Sfx.NoteNumInstrm(73,20,100,9));
+
+    //tilesSounds.put(',', new Sfx.NoteAdv("5A#",20,50,0));
       //endregion
     tilesName.put("tree",'⚲'); tilesChar.put('⚲',"tree");
       //region Tree Colors
@@ -81,10 +95,27 @@ public class GlobData {
     txrColors.put("dirtVert50",new Color(55, 94, 46));   txrColors.put("dirtHorz50",new Color(55, 94, 46));//Blend w/Grass
     txrColors.put("dirtVert51",new Color(47, 49, 27));   txrColors.put("dirtHorz51",new Color(47, 49, 27));//Blend w/Tree
       //endregion
+      //region Dirt Sound(s)
+
+    //tilesSounds.put('∷', new Sfx.Test(20,100,9));
+    //tilesSounds.put('░', new Sfx.Test(20,100,9));
+    tilesSounds.put(tilesName.get("dirtVert"), new Sfx.NoteNumInstrm(62,20,100,9));
+    tilesSounds.put(tilesName.get("dirtHorz"), new Sfx.NoteNumInstrm(62,20,100,9));
+
+    //endregion
     tilesName.put("sand",':'); tilesChar.put(':',"sand");
       //region sand Color
     txrColors.put("sand00",new Color(242,209,107));
     txrColors.put("sand01",new Color(185, 194, 53));
+      //endregion
+      //region sand Sound(s)
+    tilesSounds.put(':',new Sfx.NoteRngAdv(new byte[]{9,10},new ArrayList<Sfx>(){{
+      add(new Sfx.NoteOrder(new ArrayList<Sfx>(){{
+        add(new Sfx.NoteNumInstrm(69,0,50,9));
+        add(new Sfx.NoteNumInstrm(82,0,50,9));
+      }}));
+      add(new Sfx.NoteNumInstrm(70,0,50,9));
+    }}));
       //endregion
     tilesName.put("mud",'∴'); tilesChar.put('∴',"mud");
       //region mud Colors
@@ -105,6 +136,9 @@ public class GlobData {
       //region gravel Colors
     txrColors.put("gravel00",new Color(116, 109, 100));
     txrColors.put("gravel01", new Color(80, 77, 75));
+      //endregion
+      //region Gravel Sound(s)
+    tilesSounds.put(tilesName.get("gravel"), new Sfx.NoteNumInstrm(62,20,100,9));
       //endregion
 
     tilesName.put("mntn",'^'); tilesChar.put('^',"mntn");
@@ -212,7 +246,7 @@ public class GlobData {
     //endregion
   }
   public static boolean hitLevBrdr=false;
-  public static String walkables="";
+  public static String walkables=":";
 }
 
 

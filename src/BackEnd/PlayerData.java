@@ -8,6 +8,7 @@ import BackEnd.LevelObjects.LiveObjs;
 import FrontEnd.Colors.LevColors;
 import FrontEnd.Debugger;
 
+import javax.sound.midi.MidiUnavailableException;
 import java.io.*;
 
 import static BackEnd.GameBehaviors.LevelBhvr.*;
@@ -30,14 +31,18 @@ public class PlayerData {
     pos = new byte[]{des[0],des[1]}; //NEED TO CHANGE THIS LATER
   }
 
-  public static void movePlayer(byte[] des) throws IOException, ClassNotFoundException, InterruptedException {
+  public static void movePlayer(byte[] des) throws IOException, ClassNotFoundException, InterruptedException, MidiUnavailableException {
     facing= GlobMeths.findDirection(pos,des);
     /*System.out.println("char facing:"+ curLev.getE(des,false)+" cur walkables"+curLev.levelWalkables+
         "\n Global walkables:"+GlobData.walkables);*/
 
     //normal collision
     checkIfPlayerHitLiveObject(des);
-    if(checkIfPlayerWillWalkOnValidGround(des));
+    if(checkIfPlayerWillWalkOnValidGround(des)){
+      if(GlobData.tilesSounds.get(curLev.levBG[pos[0]][pos[1]])!=null){
+        GlobData.tilesSounds.get(curLev.levBG[pos[0]][pos[1]]).play();
+      }
+    };
 
     //level switching collision
     if(checkIfPlayerHitACollidableBorder(des) || checkIfPlayerHitLevelSwitch(des)){//

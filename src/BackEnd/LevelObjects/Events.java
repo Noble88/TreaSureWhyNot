@@ -10,6 +10,7 @@ import BackEnd.GameLoop;
 import BackEnd.GameBehaviors.SideWndwElmnts.SideWndwObjs.Tools;
 import BackEnd.GameBehaviors.SideWndwElmnts.SideWndwObjs.TresItem;
 import BackEnd.PlayerData;
+import FrontEnd.Audio.Sfx;
 import FrontEnd.Debugger;
 import FrontEnd.Managers.LevMangr;
 import FrontEnd.Managers.ScreenCover.ScreenCoverMangr;
@@ -17,6 +18,7 @@ import FrontEnd.Managers.TBoxMangr;
 import FrontEnd.Runner;
 import FrontEnd.Window;
 
+import javax.sound.midi.MidiUnavailableException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
@@ -315,8 +317,12 @@ public class Events implements Serializable {
     }
   }
 
-  public static class MovingFgElement{
+  public static class PlayNote{
+    Sfx note;
+    public PlayNote(Sfx note){this.note=note;}
 
+    public boolean triggerEvent() throws MidiUnavailableException, InterruptedException {
+      note.play(); return false;}
   }
 
   //region Bag Related Events

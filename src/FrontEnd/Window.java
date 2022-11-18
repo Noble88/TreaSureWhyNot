@@ -242,7 +242,7 @@ public class Window {
   //endregion
 
   //region keyboard stuff
-
+  //TODO BUG: disable holding button
   public static HashMap<Integer, String> KbdToAssosKey = new HashMap<>(); //Keyboard to assosiated key
   public static void warmUpKeyListener(){
     //region Core Default Keys

@@ -12,6 +12,7 @@ import FrontEnd.Colors.LevColors;
 import FrontEnd.Window;
 import FrontEnd.Managers.LevMangr;
 
+import javax.sound.midi.MidiUnavailableException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -27,7 +28,7 @@ public class GameLoop {
   public static String key = "N/A", associatedKey="N/A";
   public static byte tick=0, tickLoop;
 
-  public static void gameLoop() throws IOException, ClassNotFoundException, InterruptedException {
+  public static void gameLoop() throws IOException, ClassNotFoundException, InterruptedException, MidiUnavailableException {
     if(runWorld){
       if(tick==40){tick=0;
         if(tickLoop==10){tickLoop=0;
@@ -44,13 +45,9 @@ public class GameLoop {
       //reset key input variables (prevents repeating unwanted inputs)
     }
     LevMangr.executeDisplayOfGrid();
-    //if(PlayerData.hitLevChange){GridMangr.printGrids(); PlayerData.hitLevChange=false;}
-    //add text box write condition (IDK what i ment here)
   }
 
-  public static void inputDirector() throws IOException, ClassNotFoundException, InterruptedException {
-    //System.out.println("game state:"+gameState);
-
+  public static void inputDirector() throws IOException, ClassNotFoundException, InterruptedException, MidiUnavailableException {
     Journal.checkQuestsForCompletion(); //DONT DO THIS THIS IS A TEST
     if(inPlayableState){
       switch(associatedKey){ //GLOBAL KEY BINDINGS
@@ -68,6 +65,7 @@ public class GameLoop {
       case "EVENT"->{if(!Events.relatedEvent.triggerEvent()){Events.deActivateEventState();}}
     }
   }
+  //region Get key stuff
   public static void associatedKeyPressed(String key) throws FileNotFoundException {
     associatedKey=assosToKey.getOrDefault(key,"N/A");
   }
@@ -87,5 +85,5 @@ public class GameLoop {
     sc.close();
     return "N/A";
   }
-
+  //endregion
 }

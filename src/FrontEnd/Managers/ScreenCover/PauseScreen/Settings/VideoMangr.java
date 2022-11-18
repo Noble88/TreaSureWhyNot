@@ -17,11 +17,15 @@ public class VideoMangr {
         byte i=0;
         ScreenCoverMangr.displayLine(i,"----------Game Paused (Help)----");
         i++; ScreenCoverMangr.displayLine(i,"---Display Settings---");
-        i++; ScreenCoverMangr.displayLine(i,"1) Increase Window Size *"+wSize);
-        i++; ScreenCoverMangr.displayLine(i,"2) Increase Window Size /"+wSize);
-        i++; ScreenCoverMangr.displayLine(i,"3) Increase Text Size *"+tSize);
-        i++; ScreenCoverMangr.displayLine(i,"4) Increase Text Size /"+tSize);
+        i++; ScreenCoverMangr.displayLine(i,"1) <Window Size ("+wSize+")>");
+        i++; ScreenCoverMangr.displayLine(i,"2) <Text Size ("+tSize+")>");
         i++; ScreenCoverMangr.displayLine(i,"RESET TO DEFAULT");
+        i++;
+        i++; ScreenCoverMangr.displayLine(i,"use left and right keys to");
+        i++; ScreenCoverMangr.displayLine(i,"increase or decrease a ");
+        i++; ScreenCoverMangr.displayLine(i,"highlighted setting");
+
+
     }
 
 }

@@ -2,10 +2,11 @@ package FrontEnd.Managers.ScreenCover;
 
 import BackEnd.GameBehaviors.LevelBhvr;
 import FrontEnd.Managers.SideWndwMangr;
-import FrontEnd.Managers.TBoxMangr;
 import FrontEnd.Window;
 
-import static BackEnd.GameLoop.gameState;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import java.awt.*;
 
 public class ScreenCoverMangr {
   public static final byte yB=(SideWndwMangr.yB), xB=(SideWndwMangr.xB+LevelBhvr.xB);
@@ -44,6 +45,34 @@ public class ScreenCoverMangr {
   public static void fillGrid(String sym){
     for(byte r=1; r<yB-1 ; r++){
       for(byte c=1; c<xB-1 ; c++){Window.screenCoverCells[r][c].setText(sym);}
+    }
+  }
+
+  public static SimpleAttributeSet highlight(String color){
+
+    SimpleAttributeSet TEMP = new SimpleAttributeSet();
+    Color colorObj;
+    switch(color) {
+      case "GRAY"->{colorObj = new Color(133, 133, 133);}
+      default -> {colorObj = new Color(0, 0, 0);}
+    }
+    StyleConstants.setForeground(TEMP, colorObj);
+    return TEMP;
+  }
+  //endregion
+  public static void colorCell(String color, byte row, byte col){
+    Window.screenCoverCells[row][col].getStyledDocument().setCharacterAttributes
+        (0,1, highlight(color), true);
+  }
+  public static void highlightLine(String color, int row, int colSt, int colFin){
+    for(byte i = (byte) colSt; i<colFin; i++){colorCell(color, (byte) row,i);}
+  }
+
+  public static void clearColoredText(){
+    for(byte row=0;row<yB-1;row++){
+      for(byte col=1;col<xB-1;col++){
+        colorCell("default",row,col);
+      }
     }
   }
 

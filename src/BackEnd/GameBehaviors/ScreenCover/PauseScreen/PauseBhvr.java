@@ -8,6 +8,7 @@ import FrontEnd.Managers.ScreenCover.PauseScreen.PauseMangr;
 import FrontEnd.Managers.ScreenCover.PauseScreen.Settings.HelpManagr;
 import FrontEnd.Managers.ScreenCover.PauseScreen.Settings.KeyBindingsMangr;
 import FrontEnd.Managers.ScreenCover.PauseScreen.Settings.VideoMangr;
+import FrontEnd.Managers.ScreenCover.ScreenCoverMangr;
 import FrontEnd.Window;
 
 import java.io.IOException;
@@ -39,11 +40,12 @@ public class PauseBhvr {
     else{
       inSubMenu=true;
       switch (key) {
-        case "1" -> {VideoMangr.showPage();menuIn="Video";}
-        case "2" -> {/*AUDIO SETTINGS*/}
+        case "1" -> {VideoMangr.showPage();Video.menu.setNav(0,1);menuIn="Video";
+          ScreenCoverMangr.highlightLine("GRAY",Video.menu.getNav()[0]+2,1,31);}
+        //case "2" -> {/*AUDIO SETTINGS*/}
         case "3" -> {KeyBindingsMangr.displayKeyBindings();menuIn="Key Bindings";}
         case "4" -> {HelpManagr.showPage1();menuIn="Help";}
-        case "5" -> {/*DEV STUFF*/}
+        //case "5" -> {/*DEV STUFF*/}
         case "6" -> {GlobMeths.saveAllDataToCurrentFile(); inSubMenu=false;}
         default ->  {inSubMenu=false;}
       }
@@ -62,6 +64,9 @@ public class PauseBhvr {
   public static void leaveSubMenu(){
     PauseMangr.displayOptions();
     PauseBhvr.inSubMenu=false; PauseBhvr.justedPaused=true;
+    menuIn="N/A";
   }
+
+  //TODO MAKE: Impliment navigation similar to video.java menu navigation
 
 }

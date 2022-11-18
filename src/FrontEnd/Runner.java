@@ -20,6 +20,7 @@ import BackEnd.LevelObjects.LiveObjs;
 import BackEnd.PlayerData;
 import BackEnd.FileManagement.Loaders.LoadLevels;
 import BackEnd.GameBehaviors.SideWndwElmnts.SideWndwObjs.TresItem;
+import FrontEnd.Audio.SoundBhvr;
 import FrontEnd.Colors.LevBg;
 import FrontEnd.Colors.LevColors;
 import FrontEnd.Colors.SideWindowBg;
@@ -29,6 +30,7 @@ import FrontEnd.Managers.SideWndwMangr;
 import FrontEnd.Managers.TBoxMangr;
 //import FrontEnd.Managers.TBoxMangr;
 
+import javax.sound.midi.MidiUnavailableException;
 import java.io.IOException;
 import java.util.ArrayList;
 //NOTE: version naming goes as following relase.majorAddition.Patch
@@ -46,9 +48,10 @@ public class Runner {
 
    */
   public static boolean deleteFilesOnStart=true;
+  public static boolean disableSound=true;
 
 
-  public static void main(String[] args) throws InterruptedException, IOException, ClassNotFoundException {
+  public static void main(String[] args) throws InterruptedException, IOException, ClassNotFoundException, MidiUnavailableException {
     System.out.println("PROGRAM START!!! (inside of: "+curFilePath);
 
     //region Load Data
@@ -82,6 +85,10 @@ public class Runner {
     GlobMeths.updateWalkables();
     GlobMeths.progressTime();
 
+    //region files that don't need priority
+    SoundBhvr.warmUpSoundBhvr();
+
+    //endregion
     if(!deleteFilesOnStart){ //RESUMED SAVE DATA
       PlayerData.setPlyrPos(LoadPlayerData.getSavedPlayerPosition(),true);//sets player location using PlayerData File
       //region assigned side window player data

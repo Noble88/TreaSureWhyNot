@@ -51,6 +51,7 @@ public class SideWindowBg {
         Window.swBgCellsBG[r][c].repaint();
       }
     }
+    //LevColors.repaintWorldTint();
   }
 
 
