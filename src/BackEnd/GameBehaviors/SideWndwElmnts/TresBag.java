@@ -3,6 +3,8 @@ package BackEnd.GameBehaviors.SideWndwElmnts;
 import BackEnd.GameBehaviors.HelpElmnts.MenuCus;
 import BackEnd.GameBehaviors.TBoxBhvr;
 import BackEnd.GameBehaviors.SideWndwElmnts.SideWndwObjs.TresItem;
+import BackEnd.GameLoop;
+import FrontEnd.Debugger;
 import FrontEnd.Managers.SideWndwMangr;
 
 import java.io.*;
@@ -21,9 +23,9 @@ public class TresBag implements Serializable {
   public static void addItem(TresItem item) throws IOException, ClassNotFoundException {
     for(byte i = 0; i< isPageFull.length; i++){
       if(!isPageFull[i]){
-        if(i==menu.getCurPg()){
+        if(i==(menu.getCurPg()-1)){
          quickStor=curPage;
-        }
+        }//if the empty page found is current page
         else{
           ObjectInputStream input = new ObjectInputStream(new FileInputStream(new File(pagePaths[i])));
           quickStor = (TrePage)input.readObject();
@@ -34,15 +36,17 @@ public class TresBag implements Serializable {
             quickStor.itemGrid[r][c]=item;
             item.setPos(new byte[]{r,c});
             writeIcon(quickStor,item);
+            Debugger.tresDebugger(true,item);
             savePage(quickStor,i);
             SideWndwMangr.updateBtmCells(quickStor.bagLayout);
+            System.out.println("CHECKING PRINT!!! BEFORE QYUCKSTAR "+(menu.getCurPg()-1));
+
             quickStor.checkIfPageFull();
             refreshBag();
             quickStor =null;
             return;
           }
-        }}
-      }
+        }}}
     }
   }
   public static void deleteItem(TresItem item) throws IOException, ClassNotFoundException {
@@ -98,16 +102,16 @@ public class TresBag implements Serializable {
         new File(pagePaths[pgNum])));
     curPage = (TrePage)input.readObject();
     input.close();
-    menu.setCurPg(pgNum);
+    menu.setCurPg(pgNum+1);
   }
   //endregion
 
   public static void refreshBag() throws IOException, ClassNotFoundException {
-    switchPage(menu.getCurPg());
+    System.out.println("CHECKING PRINT!!! "+(menu.getCurPg()-1));
+    switchPage((byte) (menu.getCurPg()-1));
     SideWndwMangr.updateBtmCells(curPage.bagLayout);
+    SideWndwMangr.updatePageNumHeader(menu.getCurPg(),menu.getMaxPg());
   }
-
-
 
   public static class TrePage implements Serializable {
     public char[][] bagLayout; public static byte pgNum=-1;
@@ -144,10 +148,11 @@ public class TresBag implements Serializable {
       for(byte r=0; r<itemGrid.length; r++){
         for(byte c=0; c<itemGrid[0].length; c++){
           if(itemGrid[r][c]==null){
-            isPageFull[menu.getCurPg()]=false; return;}
+            System.out.println("CHECKER TRESURE"+menu.toString());
+            isPageFull[(menu.getCurPg()-1)]=false; return;}
         }
       }
-      isPageFull[menu.getCurPg()]=true;
+      isPageFull[(menu.getCurPg()-1)]=true;
     }
   }
 
@@ -158,6 +163,12 @@ public class TresBag implements Serializable {
       TBoxBhvr.createText(curPage.itemGrid[menu.getNav()[0]][menu.getNav()[1]].getDescr(), 15);
     }
     else{TBoxBhvr.createText("An empty space to put my next item",15);}
+  }
+
+  public static void move() throws IOException, ClassNotFoundException {
+    int prevCurPage=menu.getCurPg();
+    menu.move(GameLoop.associatedKey);
+    if(prevCurPage!=menu.getCurPg()){refreshBag();}//updates accordingly upon switching page
   }
 
   //endregion

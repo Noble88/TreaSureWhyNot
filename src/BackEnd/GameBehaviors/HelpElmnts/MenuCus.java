@@ -70,5 +70,10 @@ public class MenuCus {
   public void setCurPg(int pg){curPg= (byte) pg;}
   public void setMaxPg(int pg){maxPg= (byte) pg;}
 
+  public String toString(){
+    //TODO ADD: add the boolean stuff to this to string method
+    return "Page ("+curPg+"/"+maxPg+") on Y:"+nav[0]+"  &  X:"+nav[1];
+  }
+
 
 }

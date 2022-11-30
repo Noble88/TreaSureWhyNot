@@ -28,11 +28,6 @@ public class LevColors {
   }
 
   //region weather & time
-  public static void warmUpWindowTint(){
-
-  }
-
-
 
   public static void repaintWorldTint(){
     System.out.println("WENT IN REPAINT WORLD TITN AND CHECKING = "+

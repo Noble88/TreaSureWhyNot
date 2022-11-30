@@ -28,6 +28,8 @@ public class GameLoop {
   public static String key = "N/A", associatedKey="N/A";
   public static byte tick=0, tickLoop;
 
+  //TODO QAULITY OF LIFE: Could use the global counter and make methods that say in 40 ticks & 5 tickLoops do this action
+  // would add the value to the current time stats so can trigger long time based events
   public static void gameLoop() throws IOException, ClassNotFoundException, InterruptedException, MidiUnavailableException {
     if(runWorld){
       if(tick==40){tick=0;

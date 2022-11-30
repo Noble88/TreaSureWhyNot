@@ -177,7 +177,6 @@ public class Window {
     scBnds = new int[]{0,0, windowSize[0], windowSize[1]};
     levBnds = new int[]{0,0,getWinSizeX(xBlev),getWinSizeY(yBlev)};
 
-
     swBnds = new int[]{levBnds[2], levBnds[1],getWinSizeX(xBsw),levBnds[3]+tbBnds[3]};
     tbBnds = new int[]{levBnds[0], levBnds[3],levBnds[2],getWinSizeY(yBtbox)};
     levGrid.setBounds(levBnds[0], levBnds[1], levBnds[2], levBnds[3]);

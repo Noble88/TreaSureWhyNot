@@ -63,6 +63,21 @@ public class Debugger {
       }
     }else{System.out.println("Current Selection -> Null");}
   }
+  public static void toolDebugger(boolean add, Tools tool){    if(!sideMenuDebug){return;}
+    System.out.print("\n-------------TOOL ITEM DEBUGGER-------------\n");
+    if(tool!=null){
+      if(add) {System.out.print("Attempting to Add -> ");
+      }else{System.out.print("Attempting to delete -> ");}
+      System.out.println("Name:("+tool.getName()+")  |  Position:("+Arrays.toString(tool.getPos())+")  |  "+
+          "Quantity:("+tool.getQuantity()+")  |  Value:("+tool.getValue()+")");//basic descriptions
+      System.out.println("Description:"+tool.getDescr());
+      char[][] tempchar = tool.getIcon();
+      for(byte i=0; i<tempchar.length; i++){ String line="";
+        for(byte k=0;k<tempchar[i].length;k++){line+=" "+tempchar[i][k];}
+        System.out.println(line);
+      }
+    }else{System.out.println("Current Selection -> Null");}
+  }
   public static void tresDebugger(){    if(!sideMenuDebug){return;}
     System.out.print("\n-------------TREASURE BAG DEBUGGER-------------\n" +
         "PAGE:("+ TresBag.menu.getCurPg()+")  |  Current Tile:"+ Arrays.toString(TresBag.menu.getNav())+" |     ");
@@ -78,19 +93,35 @@ public class Debugger {
         System.out.println(line);
       }
     }else{System.out.println("Current Selection -> Null");}
-  }
+  } //For Bag Navigation
+  public static void tresDebugger(boolean add, TresItem tres){    if(!sideMenuDebug){return;}
+    System.out.print("\n-------------TREASURE ITEM DEBUGGER-------------\n");
+    if(tres!=null){
+      if(add) {System.out.print("Attempting to Add -> ");
+      }else{System.out.print("Attempting to delete -> ");}
+      System.out.println("Name:("+tres.getName()+")  |  Position:("+Arrays.toString(tres.getPos())+")  |  "+
+          "Quantity:("+tres.getQuantity()+")  |  Value:("+tres.getValue()+")");//basic descriptions
+      System.out.println("Description:"+tres.getDescr());
+      char[][] tempchar = tres.getIcon();
+      for(byte i=0; i<tempchar.length; i++){String line="";
+        for(byte k=0;k<tempchar[i].length;k++){line+=" "+tempchar[i][k];}
+        System.out.println(line);
+      }
+    }else{System.out.println("Current Selection -> Null");}
+  } //For Item Changing
+
+  //endregion
   public static void JrnlDebugger(){    if(!sideMenuDebug){return;}
     System.out.print("\n-------------JOURNAL BAG DEBUGGER-------------\n" +
         "PAGE:("+ Journal.menu.getCurPg()+")  |  Current Tile:"+ Arrays.toString(Journal.menu.getNav()));
     if(Journal.getHighlightedQuest()!=null){
       System.out.println(
           "HIGHLIGHTED QUEST ->  NAME: ("+Journal.getHighlightedQuest().name+")  |  " +
-          "TaskNum: ("+Journal.getHighlightedQuest().taskNum+")  |  "
+              "TaskNum: ("+Journal.getHighlightedQuest().taskNum+")  |  "
           //"Is Current Task Completed: ("+Journal.getHighlightedQuest().getCurTask().getIsComplete()+")"
       );}
     else{System.out.println("NO QUEST IN THIS SLOT");}
   }
-  //endregion
   //region Text Box Debugger
   public static void createTextDebugger(int speed, String text){if(!tBoxDebug){return;}
     System.out.println("\n-------------Create Text DEBUGGER-------------\n"+

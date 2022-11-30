@@ -11,7 +11,7 @@ import static BackEnd.GlobalInfo.GlobData.fileFinder;
 public class LoadBag {
   public static void loadBag() throws IOException, InterruptedException, ClassNotFoundException {
     for(byte i=0;i<TresBag.menu.getMaxPg();i++){
-      createPage( i,true);
+      createPage(i,true);
     }
     //region Create the first page
     ObjectInputStream input1 = new ObjectInputStream(new FileInputStream(new File(TresBag.pagePaths[0])));
