@@ -159,9 +159,8 @@ public class ToolBag {
       for(byte r=0; r<itemGrid.length; r++){
         for(byte c=0; c<itemGrid[0].length; c++){
           if(itemGrid[r][c]==null){
-            isPageFull[menu.getCurPg()-1]=false; return;}
-        }
-      }
+            isPageFull[menu.getCurPg()-1]=false; return;
+          }}}
       isPageFull[menu.getCurPg()-1]=true;
     }
   }
