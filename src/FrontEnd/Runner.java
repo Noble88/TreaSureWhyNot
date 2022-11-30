@@ -77,7 +77,6 @@ public class Runner {
     SideWndwMangr.warmUpSideWndwMangr();
     LevBg.warmUpLevelBackground();
     SideWindowBg.warmUpSideWindowBackground();
-    LevColors.warmUpWindowTint();
     //endregion
     //region Make the screen presentable
     LevMangr.displayWholeGrid();
@@ -136,6 +135,14 @@ public class Runner {
       ));
       LevelBhvr.curLev.inputObjs.add(obj44);
 
+      TresBag.addItem(new TresItem.BasicTre("TEST THING","THIS IS A TEST",100,
+          new char[][]{ {'+','-'},{'-','+'}}));
+      TresBag.addItem(new TresItem.BasicTre("TEST THING","THIS IS A TEST",100,
+          new char[][]{ {'2','2'},{'2','2'}}));
+      TresBag.addItem(new TresItem.BasicTre("TEST THING","THIS IS A TEST",100,
+          new char[][]{ {'3','3'},{'3','3'}}));
+
+
       InputObjs obj5 = new InputObjs.visibleObj("obj5",new byte[]{13,7},'s', new Events.SelectBox(
           new ArrayList<Events>(){{add(new Events.BscText("1!")); add(new Events.BscText("2!"));
             add(new Events.BscText("3!"));}},
@@ -168,12 +175,6 @@ public class Runner {
 
       //endregion
       //region test items
-        TresBag.addItem(new TresItem.BasicTre("TEST THING","THIS IS A TEST",100,
-            new char[][]{ {'+','-'},{'-','+'}}));
-        TresBag.addItem(new TresItem.BasicTre("TEST THING","THIS IS A TEST",100,
-            new char[][]{ {'2','2'},{'2','2'}}));
-        TresBag.addItem(new TresItem.BasicTre("TEST THING","THIS IS A TEST",100,
-            new char[][]{ {'3','3'},{'3','3'}}));
 
 
       ToolBag.addItem(new Tools.BasicTool("Shovel", "A trusty shovel", 1,

@@ -3,9 +3,12 @@ package BackEnd.GameBehaviors.SideWndwElmnts;
 import BackEnd.GameBehaviors.HelpElmnts.MenuCus;
 import BackEnd.GameBehaviors.TBoxBhvr;
 import BackEnd.GameBehaviors.SideWndwElmnts.SideWndwObjs.Tools;
+import BackEnd.GameLoop;
+import FrontEnd.Debugger;
 import FrontEnd.Managers.SideWndwMangr;
 
 import java.io.*;
+import java.util.Arrays;
 
 import static BackEnd.GameBehaviors.SideWndwElmnts.TresBag.emptyIcon;
 //TODO EFFIENCY: make a new class called bag that takes the common aspects of both bag classes and merges it (ex: navv method) (might not work tho)
@@ -22,9 +25,9 @@ public class ToolBag {
   public static void addItem(Tools item) throws IOException, ClassNotFoundException {
     for(byte i = 0; i< isPageFull.length; i++){
       if(!isPageFull[i]){
-        if(i==menu.getCurPg()){
-          quickStor =curPage;
-        }
+        if(i==(menu.getCurPg()-1)){
+          quickStor = curPage;
+        }//if the empty page found is current page
         else{
           ObjectInputStream input = new ObjectInputStream(new FileInputStream(new File(pagePaths[i])));
           quickStor = (ToolPage) input.readObject();
@@ -35,11 +38,12 @@ public class ToolBag {
             quickStor.itemGrid[r][c]=item;
             item.setPos(new byte[]{r,c});
             writeIcon(quickStor,item);
+            Debugger.toolDebugger(true,item);
             savePage(quickStor,i);
             SideWndwMangr.updateBtmCells(quickStor.bagLayout);
             quickStor.checkIfPageFull();
             refreshBag();
-            quickStor =null;
+            quickStor = null;
             return;
             //TODO EFFICIENCY: Make boolean of if player has item list as to not search entire backpack everytime check if have an item. (needs disable has item when selling item)
           }//TODO BUG: might mess up if the first empty page is curPage FIX THIS
@@ -107,15 +111,16 @@ public class ToolBag {
         new File(pagePaths[pgNum])));
     curPage = (ToolPage) input.readObject();
     input.close();
-    menu.setCurPg(pgNum);
+    menu.setCurPg(pgNum+1);
   }
 
   //endregion
 
 
   public static void refreshBag() throws IOException, ClassNotFoundException {
-    switchPage(menu.getCurPg());
+    switchPage((byte) (menu.getCurPg()-1));
     SideWndwMangr.updateBtmCells(curPage.bagLayout);
+    SideWndwMangr.updatePageNumHeader(menu.getCurPg(),menu.getMaxPg());
   }
 
 
@@ -154,10 +159,10 @@ public class ToolBag {
       for(byte r=0; r<itemGrid.length; r++){
         for(byte c=0; c<itemGrid[0].length; c++){
           if(itemGrid[r][c]==null){
-            isPageFull[menu.getCurPg()]=false; return;}
+            isPageFull[menu.getCurPg()-1]=false; return;}
         }
       }
-      isPageFull[menu.getCurPg()]=true;
+      isPageFull[menu.getCurPg()-1]=true;
     }
   }
   public static void updateSubText(){
@@ -184,6 +189,11 @@ public class ToolBag {
     else{TBoxBhvr.createText("An empty space to put my next item",15);}
   }
 
+  public static void move() throws IOException, ClassNotFoundException {
+    int prevCurPage=menu.getCurPg();
+    menu.move(GameLoop.associatedKey);
+    if(prevCurPage!=menu.getCurPg()){refreshBag();}//updates accordingly upon switching page
+  }
 
 //TODO BUG: display text is gone upon pressing T again
 

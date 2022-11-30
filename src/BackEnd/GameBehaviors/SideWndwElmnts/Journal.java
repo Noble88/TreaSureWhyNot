@@ -29,6 +29,7 @@ public class Journal {
     }
     Debugger.JrnlDebugger();
     menu.setMaxPg((quests.size()/15)+1);
+    SideWndwMangr.updatePageNumHeader(menu.getCurPg(),menu.getMaxPg());
   }
 
   public static void displayInteractText() throws InterruptedException {
@@ -51,6 +52,7 @@ public class Journal {
   //endregion
 
   public static void updateSubText() {
+    //TODO BUG: Need to do something with the subtext as leaves ify part at the bottom when switch tabs
     /*
     SideWndwMangr.updateLine("------------", 15);
     if (getHighlightedQuest() != null) {

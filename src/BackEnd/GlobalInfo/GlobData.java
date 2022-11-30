@@ -25,7 +25,7 @@ public class GlobData {
   //endregion
   //region Weather and Time Color
   public static HashMap<String, Color> weatherColor = new HashMap<>();
-  public static byte time=22;
+  public static byte time=10; //TODO MAKE: make it save the time & weather
   public static String weather="clear";
   public static Color worldTint;
   //endregion

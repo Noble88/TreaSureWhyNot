@@ -40,6 +40,15 @@ public class SideWndwMangr {
       }
     }
   }
+  public static void updatePageNumHeader(int curPg,int maxPg){
+    String header,cr="00",mx="00";
+    if(curPg<10){cr="0"+curPg;} else{cr=curPg+"";}
+    if(maxPg<10){mx="0"+maxPg;} else{mx=maxPg+"";}
+    header="---"+cr+"/"+mx+"---";
+      for(byte col=0; col<SideWndwMangr.xB-1; col++){
+        Window.sideWndwCells[5][col].setText(header.substring(col,col+1));
+      }
+  }
   public static void updateBtmCells(char[][] arr){
     byte space=5;
     for(byte row=0; row<SideWndwMangr.yB-space; row++){

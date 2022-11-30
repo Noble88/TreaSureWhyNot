@@ -46,7 +46,7 @@ public class SideWndwBhvr {
       case"TREASURE"->{switch (GameLoop.associatedKey) { //When in |LEVEL| state
         case "UP", "DOWN", "LEFT", "RIGHT"-> {
           SideWndwMangr.changeHighlightState(false,false,TresBag.menu.getNav()[0],TresBag.menu.getNav()[1]);
-          TBoxBhvr.clearTextBox(); TresBag.menu.move(GameLoop.associatedKey); Debugger.tresDebugger();
+          TBoxBhvr.clearTextBox(); TresBag.move(); Debugger.tresDebugger();
           SideWndwMangr.changeHighlightState(true,false,TresBag.menu.getNav()[0],TresBag.menu.getNav()[1]);
         }
 
@@ -56,7 +56,7 @@ public class SideWndwBhvr {
       case"TOOLS"->{switch (GameLoop.associatedKey) { //When in |LEVEL| state
         case "UP", "DOWN", "LEFT", "RIGHT"-> {
           SideWndwMangr.changeHighlightState(false,true,ToolBag.menu.getNav()[0],ToolBag.menu.getNav()[1]);
-          TBoxBhvr.clearTextBox(); ToolBag.menu.move(GameLoop.associatedKey); ToolBag.updateSubText();Debugger.toolDebugger();
+          TBoxBhvr.clearTextBox(); ToolBag.move(); ToolBag.updateSubText();Debugger.toolDebugger();
           SideWndwMangr.changeHighlightState(true,true,ToolBag.menu.getNav()[0],ToolBag.menu.getNav()[1]);
         }
         case "INTERACT" -> {ToolBag.displayItemDescription();}
