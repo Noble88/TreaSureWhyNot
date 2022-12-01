@@ -15,6 +15,8 @@ import java.io.IOException;
 
 import static BackEnd.GameLoop.*;
 
+//TODO MAKE: Make a debug menu in where can toggle certain debug options
+
 public class PauseBhvr {
   public static String menuIn="N/A";
   public static boolean paused=false, justedPaused=false, inSubMenu=false;

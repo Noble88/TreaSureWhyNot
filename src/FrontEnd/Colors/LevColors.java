@@ -14,10 +14,6 @@ import java.awt.*;
 import static BackEnd.GlobalInfo.GlobData.*;
 
 public class LevColors {
-  /*
-  TODO WORK ON: Make it so when load a level it will request the colors it will need
-    -(could make it scan the level before hand and checks to see what colors are needed
-  */
   public static SimpleAttributeSet levCellColor(char e){ //sets forground
     SimpleAttributeSet TEMP = new SimpleAttributeSet();
     if(txrColors.containsKey(tilesChar.get(e)+"00")){
@@ -30,8 +26,6 @@ public class LevColors {
   //region weather & time
 
   public static void repaintWorldTint(){
-    System.out.println("WENT IN REPAINT WORLD TITN AND CHECKING = "+
-        (LevelBhvr.curLev.levelBg!=null));
     if(LevelBhvr.curLev.levelBg!=null){
       worldTint = LevelBhvr.curLev.levelBg;windowTint.repaint(); return;}
     int r=0,g=0,b=0,a=0; //adjusters
@@ -59,13 +53,6 @@ public class LevColors {
       }
     }
     worldTint = new Color(worldTint.getRed()+r, worldTint.getGreen()+g, worldTint.getBlue()+b, 50+a);
-    if(time<=12){
-      System.out.println("time: ("+(time)+")AM / 24 Time: ("+time+")  & Color: ("+
-          worldTint.getRed()+"/"+ worldTint.getGreen()+"/"+ worldTint.getBlue()+"/"+ worldTint.getAlpha()+")");
-    } else{
-      System.out.println("time: ("+(time-12)+")PM 24 Time: ("+time+") & Color: ("+
-          worldTint.getRed()+"/"+ worldTint.getGreen()+"/"+ worldTint.getBlue()+"/"+ worldTint.getAlpha()+")");
-    }
   }
 
   public static JPanel windowTint = new JPanel(){

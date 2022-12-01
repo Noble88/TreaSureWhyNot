@@ -19,7 +19,6 @@ public class LevelBhvr {
   public static Level curLev = null;
 
   //public static ArrayList<byte[]> levLayer = new ArrayList<>(){new byte{0,0.txt}}
-//TODO EFFICENCY: empty forground are made = to background meaning at max twice as many chars are being used to make 1 area which no good
   static public class Level implements Serializable {
     //region declare and initialize variables
     //region ---Basic Level Components---
@@ -32,7 +31,6 @@ public class LevelBhvr {
     public Color levelBg = null;
     //endregion
     //region ---Sub Level / Switch Components---
-    //TODO ASK TEACHER: IF ARRAY LIST IS DEFINED FOR MOST OF THE TIME BUT ON FEW OCCASIONS IT WILL CHANGE WOULD IT STILL BE EFFICENT TO USE A LIST
     public ArrayList<byte[]> subLevLoc = new ArrayList<>();
     public ArrayList<String> subLevPath = new ArrayList<>();
     public ArrayList<byte[]> spawnPoints = new ArrayList<>();
@@ -53,7 +51,7 @@ public class LevelBhvr {
       }
       for(byte y = 0; y<yB;y++){
         for(byte x=0; x<xB;x++){
-          levFG[y][x]=arr[y][x];
+          levFG[y][x]=arr[y][x]; //Seems inefficient to make the bg to fg when its not needed but idk how to check if 2d arr pos is empty
           levBG[y][x]=arr[y][x];
         }
       }
@@ -108,7 +106,6 @@ public class LevelBhvr {
       goToNewLevel(subLevPath.get(loc));
       LevColors.repaintWorldTint();
     }
-    //TODO BUG: WONT SAVE WHEN ENTER BUILDING
     //endregion
     //region Level Management
     public void goToNewLevel(String filePath) throws IOException, ClassNotFoundException {

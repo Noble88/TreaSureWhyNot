@@ -11,13 +11,11 @@ import java.io.IOException;
 
 public class SideWndwBhvr {
   public static String curTab="TREASURE";
-  //TODO LATER: make a combine status that combines the top half of the side window & bottom half and an array
-  // Then use that array and update all cells using SideWndwMangr.updateCells(arr)
   public static void switchTabs(String tab) throws IOException, ClassNotFoundException {
     if(tab.equals(curTab)){return;}//Will make it so wont refresh stuff if only attempted to switch to a page that player is already on
     SideWndwMangr.clearSideWindowBg(true);
     curTab=tab;
-
+    TBoxBhvr.clearTextBox(false);
     switch(tab){
       case "TREASURE"->{
         SideWndwMangr.changeHighlightState(true,false,TresBag.menu.getNav()[0],TresBag.menu.getNav()[1]);
@@ -49,8 +47,6 @@ public class SideWndwBhvr {
           TBoxBhvr.clearTextBox(); TresBag.move(); Debugger.tresDebugger();
           SideWndwMangr.changeHighlightState(true,false,TresBag.menu.getNav()[0],TresBag.menu.getNav()[1]);
         }
-
-        //TODO EFFIENCY check to see if needs to update so if doens't move anywhere wont update for no reason
         case "INTERACT" -> {TresBag.displayItemDescription();}
       }}
       case"TOOLS"->{switch (GameLoop.associatedKey) { //When in |LEVEL| state

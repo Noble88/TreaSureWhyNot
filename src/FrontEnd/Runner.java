@@ -35,8 +35,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 //NOTE: version naming goes as following relase.majorAddition.Patch
 //TODO SENDING IT OUT: before sharing final results: toggle saving in settings / make exe file / bug check... / help menu / TBA
-//TODO EFFICIENCY: organize imports to reduce loading time
-//TODO CODING: make it so all "static finals" are put in all caps
 public class Runner {
   public static String curFilePath=System.getProperty("user.dir");
   public static boolean settingUp=true;
@@ -69,7 +67,7 @@ public class Runner {
     else{LoadLevels.levelSelect(curFilePath+"/src/BackEnd/FileManagement/SavedData/Assets/Levels/LivelyLeafs/0,0.txt");}
 
     Debugger.debugGame(false,true,true,true,
-        false,false,true,false,false,false);
+        false,false,true,false,false,false,true);
 
     ScreenCoverMangr.warmUpScreenCover();
     KeyBinds.warmUpSettings();

@@ -62,7 +62,7 @@ public class PlayerData {
     if((curLev.liveObjSyms.contains(Character.toString(curLev.getE(des,true))))&&
         (LiveObjs.findLiveObjWithDes(des)!=null)){
       LiveObjs.findLiveObjWithDes(des).playerCollide();
-      //TODO MAKE: maybe live object can play sound (make new method or type of live object that produce sound on hit)
+      //TODO LATER MAKE: maybe live object can play sound (make new method or type of live object that produce sound on hit)
     }
   }
   public static boolean checkIfPlayerWillWalkOnValidGround(byte[] des){
@@ -70,7 +70,7 @@ public class PlayerData {
       curLev.flipE(pos,true);//deletePlayer
       curLev.setE(new byte[]{des[0],des[1]},'@',true); //add player
       pos = new byte[]{des[0],des[1]}; //update player location
-      //TODO MAKE: can have identify what the current tile player on and make a sound
+      //TODO LATER MAKE: can have identify what the current tile player on and make a sound
       return true;
     }
     return false;

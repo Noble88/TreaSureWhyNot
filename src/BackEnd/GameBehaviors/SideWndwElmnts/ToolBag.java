@@ -11,7 +11,9 @@ import java.io.*;
 import java.util.Arrays;
 
 import static BackEnd.GameBehaviors.SideWndwElmnts.TresBag.emptyIcon;
-//TODO EFFIENCY: make a new class called bag that takes the common aspects of both bag classes and merges it (ex: navv method) (might not work tho)
+//TODO OVERHAUL!!!: make a new class called bag that takes the common aspects of both bag classes and merges it (ex: navv method) (might not work tho)
+//      How Would I Do It: Need to make a items class and inside have tool & tres extend item (class). tool & tres could
+//      share: name/if tool or bag boolean/value/Icon/page position/qauntity/description
 public class ToolBag {
   public static MenuCus menu = new MenuCus(11,4,2,true,true,false);
 
@@ -45,8 +47,7 @@ public class ToolBag {
             refreshBag();
             quickStor = null;
             return;
-            //TODO EFFICIENCY: Make boolean of if player has item list as to not search entire backpack everytime check if have an item. (needs disable has item when selling item)
-          }//TODO BUG: might mess up if the first empty page is curPage FIX THIS
+          }
         }}
       }
     }
@@ -83,9 +84,7 @@ public class ToolBag {
     quickStor=null;
   }
   //TODO CREATE METHOD: make method that takes in item's name and searches bag for that item
-  //TODO CREATE FILE: create a file in fresh assests that contains all the possible items a player can get so auto creates it
-
-  //TODO CREATE: make hashmap that contains name to object (make sure to save it somehow)
+  //TODO CREATE: Make a hasmap that contains name,object in where the object are items that can be called from
   //TODO Check: are items even saved if not make it some items are saved over
 
   public static void writeIcon(ToolPage page, Tools item){
@@ -193,10 +192,5 @@ public class ToolBag {
     menu.move(GameLoop.associatedKey);
     if(prevCurPage!=menu.getCurPg()){refreshBag();}//updates accordingly upon switching page
   }
-
-//TODO BUG: display text is gone upon pressing T again
-
-
-
   //endregion
 }

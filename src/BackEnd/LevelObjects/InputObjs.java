@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.Serializable;
 
 public class InputObjs implements Serializable{ //Game Play Object
+  //region class objects
   public static class visibleObj extends InputObjs implements Serializable {
     byte[] pos;
     String name="N/A";
@@ -43,17 +44,19 @@ public class InputObjs implements Serializable{ //Game Play Object
         if(event.triggerEvent()){Events.initiateEventState(event);}}
     }
   }
-
+  //endregion
+  //region Helper Methods
   public static boolean plyrIntrCheck(byte[] charPos){
     byte[] temp = GlobMeths.findCords(PlayerData.pos,PlayerData.facing);
     return( (charPos[0]==temp[0]) && (charPos[1]==temp[1]));
   }
-
+  //endregion
+  //region getter and setter methods & super stuff
   public void disappear(){System.out.println("RAN EMPTY DISAPPEAR");}
   public byte[] getPos(){return new byte[]{-1,-1};}
   public String getName(){return "EMPTY NAME";}
   public void run() throws InterruptedException, IOException, ClassNotFoundException {}
-
+  //endregion
 }
 
 

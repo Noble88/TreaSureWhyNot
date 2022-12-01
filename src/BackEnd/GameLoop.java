@@ -50,7 +50,7 @@ public class GameLoop {
   }
 
   public static void inputDirector() throws IOException, ClassNotFoundException, InterruptedException, MidiUnavailableException {
-    Journal.checkQuestsForCompletion(); //DONT DO THIS THIS IS A TEST
+    Journal.checkQuestsForCompletion(); //TODO MAKE: make a better way / better place to check for quest complition
     if(inPlayableState){
       switch(associatedKey){ //GLOBAL KEY BINDINGS
         case "MAP"     ->{}
@@ -72,7 +72,6 @@ public class GameLoop {
     associatedKey=assosToKey.getOrDefault(key,"N/A");
   }
 
-  //TODO efficiency: when making hash map for key bindings try figure out a way where can change
   public static String getKeyFromAssociatedKey(String associatedKey) throws FileNotFoundException { //Currently only used in 1 place (is not efficent)
     File keyBinds = new File(fileFinder.get("KeyBinds"));
     Scanner sc = new Scanner(keyBinds);

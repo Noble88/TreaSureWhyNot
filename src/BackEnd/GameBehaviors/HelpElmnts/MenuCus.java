@@ -71,8 +71,10 @@ public class MenuCus {
   public void setMaxPg(int pg){maxPg= (byte) pg;}
 
   public String toString(){
-    //TODO ADD: add the boolean stuff to this to string method
-    return "Page ("+curPg+"/"+maxPg+") on Y:"+nav[0]+"  &  X:"+nav[1];
+    return
+        "[ Page ("+curPg+"/"+maxPg+") on Y:"+nav[0]+"  &  X:"+nav[1]+" ]  |  " +
+        "[ Vertical Wrapping: ("+vertWrap+") / Horizontal Wrapping: ("+horizWrap+") ]" +
+        "[ Change Page Vertically: ("+vertChngPg+") / Change Page Horizontally: ("+horizChngPg+") ]";
   }
 
 

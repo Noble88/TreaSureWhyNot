@@ -4,6 +4,7 @@ import BackEnd.FileManagement.Loaders.LoadPlayerData;
 import BackEnd.GameBehaviors.LevelBhvr;
 import BackEnd.PlayerData;
 import FrontEnd.Colors.LevColors;
+import FrontEnd.Debugger;
 
 import java.io.IOException;
 
@@ -61,14 +62,7 @@ public class GlobMeths {
 
       return;}
     else{LevColors.repaintWorldTint();}
-
-    if(time<=12){
-      System.out.println("time: ("+(time)+")AM / 24 Time: ("+time+")  & Color: ("+
-          worldTint.getRed()+"/"+ worldTint.getGreen()+"/"+ worldTint.getBlue()+"/"+ worldTint.getAlpha()+")");
-    } else{
-      System.out.println("time: ("+(time-12)+")PM 24 Time: ("+time+") & Color: ("+
-          worldTint.getRed()+"/"+ worldTint.getGreen()+"/"+ worldTint.getBlue()+"/"+ worldTint.getAlpha()+")");
-    }
+    if(Debugger.weatherAndTimeDebug)Debugger.weatherAndTimeDebugger();
     windowTint.repaint();
   }
 

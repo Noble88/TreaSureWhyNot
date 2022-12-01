@@ -28,6 +28,9 @@ public class Quest implements Serializable {
     }
   }
 
+  public void addTask(Tasks task){tasks.add(task);}
+  public void addTask(ArrayList<Tasks> task){tasks.addAll(task);}
+
   public String getInteractText(){
     return getCurTask().getQuestText();
   }

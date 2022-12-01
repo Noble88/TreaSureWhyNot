@@ -3,6 +3,7 @@ package BackEnd.LevelObjects;
 import BackEnd.GameBehaviors.LevelBhvr;
 import BackEnd.GameBehaviors.SideWndwElmnts.Journal;
 import BackEnd.GameBehaviors.SideWndwElmnts.SideWndwObjs.Jrnl.Quest;
+import BackEnd.GameBehaviors.SideWndwElmnts.SideWndwObjs.Jrnl.Tasks;
 import BackEnd.GameBehaviors.SideWndwElmnts.ToolBag;
 import BackEnd.GameBehaviors.SideWndwElmnts.TresBag;
 import BackEnd.GameBehaviors.TBoxBhvr;
@@ -76,7 +77,7 @@ public class Events implements Serializable {
 
   }
 
-  //TODO make a delete after selection option so can't duplicate text
+  //TODO OVERHAUL: REDO THIS AND MAKE IT MORE CONDECNE AND EFFICENT also make a add and remove option method
   public static class SelectBox extends Events implements Serializable{
     public ArrayList<Events> options = new ArrayList<>();
     public ArrayList<String> optionNames = new ArrayList<>();
@@ -144,7 +145,6 @@ public class Events implements Serializable {
       }
     }
     public void colorNavText(){ //I'm having trouble find why this works (scared to touch but should redo if don't understand)
-      //TODO UNDERSTAND: find out what this code means/does
       byte maxOptions = (byte) options.size();
       TBoxMangr.clearColoredText();
       if(TBoxBhvr.textIsCleared){TBoxMangr.clearColoredText();}
@@ -174,7 +174,8 @@ public class Events implements Serializable {
     }
     public boolean triggerEvent() throws IOException, InterruptedException, ClassNotFoundException {
       if(relatedEvent==null){
-        formatLines();if(Debugger.selectBoxDebug){System.out.println("---Formatting Lines:"+lines);}
+        formatLines();
+        if(Debugger.selectBoxDebug){System.out.println("---Formatting Lines:"+lines);}//has to be done for debugger to obtain proper info
         colorNavText();
         GameLoop.associatedKey="N/A"; GameLoop.key = "N/A"; Window.keyPressedKeyListner="N/A";
       }
@@ -213,9 +214,9 @@ public class Events implements Serializable {
       LevelBhvr.curLev.getInputObj(name).disappear();
       return false;
     }
-    //TODO Suggestions: Maybe make a dispear method within InputObjs so paramtere doesn't need a
   }
 
+  //region Quest/Jounral Related
   public static class GiveQuest extends Events implements Serializable{
     Quest quest;
     public GiveQuest(Quest quest){this.quest= quest;}
@@ -225,7 +226,26 @@ public class Events implements Serializable {
       return false;
     }
   }
+  public static class AddTaskToQuest extends Events implements Serializable{
+    String questAddingTo;
+    ArrayList<Tasks> tasks = new ArrayList<>();
+    Tasks task;
 
+    public AddTaskToQuest(String questName, Tasks task){
+      questAddingTo=questName; this.task=task;
+    }
+    public AddTaskToQuest(String questName, ArrayList<Tasks> tasks){
+      questAddingTo=questName; this.tasks.addAll(tasks);
+    }
+
+    public boolean triggerEvent() throws InterruptedException, IOException, ClassNotFoundException {
+      if(tasks.size()==0){Journal.findQuest(questAddingTo).addTask(task);}
+      else{Journal.findQuest(questAddingTo).addTask(tasks);}
+
+      return false;
+    }
+  }
+  //endregion
   /*This Obj, Ripped to FullCordMvt But dones't have collition and can't be interacted with
       This is in events because its only serves as visual event   */
   public static class SymScramble extends Events implements Serializable {

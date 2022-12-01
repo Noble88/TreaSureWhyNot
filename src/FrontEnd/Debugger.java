@@ -7,6 +7,7 @@ import BackEnd.GameBehaviors.SideWndwElmnts.ToolBag;
 import BackEnd.GameBehaviors.SideWndwElmnts.TresBag;
 import BackEnd.GameBehaviors.SideWndwElmnts.SideWndwObjs.Tools;
 import BackEnd.GameBehaviors.SideWndwElmnts.SideWndwObjs.TresItem;
+import BackEnd.GlobalInfo.GlobData;
 import FrontEnd.Managers.ScreenCover.ScreenCoverMangr;
 import FrontEnd.Managers.SideWndwMangr;
 import FrontEnd.Managers.TBoxMangr;
@@ -14,18 +15,19 @@ import FrontEnd.Managers.TBoxMangr;
 import java.util.Arrays;
 
 import static BackEnd.GameBehaviors.LevelBhvr.curLev;
+import static BackEnd.GlobalInfo.GlobData.time;
+import static BackEnd.GlobalInfo.GlobData.worldTint;
 
-//TODO MAKE: make options page (in game) for debugger to toggle certain options on or off
 
 public class Debugger {
   public static boolean showLevelContacts,playerDebug,levelDebug, sideMenuDebug,tBoxDebug,windowDebug,saveDataDebug,
-      fileTracerDebug, eventDebug,selectBoxDebug;
+      fileTracerDebug, eventDebug,selectBoxDebug,weatherAndTimeDebug;
   public static void debugGame(boolean player, boolean level,boolean sideMen, boolean tBox,
                                boolean levelContacts, boolean window, boolean saveData, boolean fileTracer,
-                               boolean event,boolean selBox){
+                               boolean event,boolean selBox,boolean time){
     playerDebug=player; levelDebug=level; sideMenuDebug=sideMen; tBoxDebug=tBox;
     showLevelContacts=levelContacts; windowDebug=window; saveDataDebug=saveData; fileTracerDebug=fileTracer;
-    eventDebug =event; selectBoxDebug=selBox;}
+    eventDebug =event; selectBoxDebug=selBox; weatherAndTimeDebug=time;}
   public static void showLevelContacts(String name, String[] contacts){if(!showLevelContacts){return;}
     System.out.println("Level:"+name);
     for(int i=0; i<4;i++){
@@ -45,7 +47,7 @@ public class Debugger {
         "Walkable Chars:("+curLev.levelWalkables+")  |  Boarder Collision:("+curLev.swapLevOnBrdrHit +")"
     );
   }
-  //TODO SUGGESTION -> make it so displays item info upon reciving the item insead of printing each time nav hover over it (maybe toggle extensive mode)
+  //TODO LATER SUGGESTION -> make it so displays item info upon reciving the item insead of printing each time nav hover over it (maybe toggle extensive mode)
   //region Bag Debuggers
   public static void toolDebugger(){    if(!sideMenuDebug){return;}
     System.out.print("\n-------------TOOL BAG DEBUGGER-------------\n" +
@@ -132,7 +134,6 @@ public class Debugger {
         "Line:("+line+")  |  Text:"+text);
   }
 
-  //TODO: make Live obj debugger and press button to swap between them the live obj in level
   //endregion
   public static void windowDebugger(){
     System.out.println("\n-------------WINDOW DEBUGGER-------------");
@@ -150,7 +151,7 @@ public class Debugger {
         "Window Size -> X:("+Window.scBnds[0]+")  |  "+" Y:("+Window.scBnds[1]+")  |  "+
         "Width:("+Window.scBnds[2]+")  |  "+" Height:("+Window.scBnds[3]+")  |  ");
   }
-  public static void savedData(byte[] posOfPlyr, String levelSaved){ //TODO IDK: hard to get saved data for side window
+  public static void savedData(byte[] posOfPlyr, String levelSaved){
     System.out.println("\n-------------SAVED DATA DEBUGGER-------------");
     System.out.println("Position Saved -> (Y:"+posOfPlyr[0]+" , X:"+posOfPlyr[1]+")  |  Level File Saved -> "+levelSaved);
   }
@@ -158,14 +159,18 @@ public class Debugger {
     System.out.println("\n-------------FILE TRACER/TRACKER DEBUGGER-------------");
     System.out.println("File Pulled -> "+file);
   }
+  public static void weatherAndTimeDebugger(){
+    System.out.print("\n-------------WEATHER AND TIME DEBUGGER-------------\n" +
+        "Current Weather: ("+ GlobData.weather+")  |  ");
+    if(time<=12){
+      System.out.println("[12h Time: ("+(time)+")AM] | [24 Time: ("+time+")]  & Color RBGA: ("+
+          worldTint.getRed()+"/"+ worldTint.getGreen()+"/"+ worldTint.getBlue()+"/"+ worldTint.getAlpha()+")");
+    } else {
+      System.out.println("[12h Time: ("+(time-12)+")AM] | [24 Time: ("+time+")]  & Color RBGA: ("+
+          worldTint.getRed()+"/"+ worldTint.getGreen()+"/"+ worldTint.getBlue()+"/"+ worldTint.getAlpha()+")");
+    }
+  }
 
-  //TODO MAKE: make a windowTint debugger
-
-
-
-
-  //TODO: make a interactable debugger than can select a tile and know its properties
-  //TODO: make it so when I modify the level it saves a newly created file
-  //TODO: make the debugger so I can teleport to any location I want <-- could make way to fast travel
+  //TODO: make the debugger so I can teleport to any location I want <-- could be gate way to fast travel mechanic
 
 }

@@ -13,9 +13,7 @@ import java.io.Serializable;
 public class Tasks implements Serializable {
 
   //NOTE: nameing of tasks goes a follows -> (condition to meet) + (reward upon complete)
-  //TODO MAKE: NPC/world need to know what type of tasks they should check for (either by name or ID)
 
-  //TODO MAKE: need to make ways to check certain catagories of tasks ex: need to check "toolGet" type tasks when getting tools
   //region TEST
   public static class IntrSymGetTestTask extends Tasks implements Serializable{
     char npc; String questText;

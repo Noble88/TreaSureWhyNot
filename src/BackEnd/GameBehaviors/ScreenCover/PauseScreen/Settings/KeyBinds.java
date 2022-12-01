@@ -15,6 +15,7 @@ import java.util.Scanner;
 
 import static BackEnd.GlobalInfo.GlobData.fileFinder;
 
+//TODO OVERHAUL!!!: could instead if specific key binds make a 2 handed or 1 handed layout
 public class KeyBinds {
   //TODO EFFICENCY: change menu navigation
 
